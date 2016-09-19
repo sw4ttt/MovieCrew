@@ -13,22 +13,27 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class ApiAuthController extends Controller
 {
-    public function authenticate(Request $request)
+    public function register(Request $request)
+    {        
+    	$input = $request->only('email', 'password');
+    	$input['password'] = Hash::make($input['password']);
+    	User::create($input);
+        return response()->json(['result'=>true]);
+    }
+    
+    public function login(Request $request)
     {
-        // grab credentials from the request
-        $credentials = $request->only('email', 'password');
-
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 401);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
+    	$input = $request->all();
+    	if (!$token = JWTAuth::attempt($input)) {
+            return response()->json(['result' => 'wrong email or password.']);
         }
-
-        // all good so return the token
-        return response()->json(compact('token'));
-    }    
+        	return response()->json(['result' => $token]);
+    }
+    
+    public function get_user_details(Request $request)
+    {
+    	$input = $request->all();
+    	$user = JWTAuth::toUser($input['token']);
+        return response()->json(['result' => $user]);
+    }   
 }
