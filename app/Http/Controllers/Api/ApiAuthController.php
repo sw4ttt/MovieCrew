@@ -30,40 +30,5 @@ class ApiAuthController extends Controller
 
         // all good so return the token
         return response()->json(compact('token'));
-    }
-
-    public function signup(Request $request)
-    {
-        $signupFields = [
-            'email', 'password'
-            ];
-        $signupFieldRules = [
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
-            ];  
-
-        $hasToReleaseToken = true;
-
-        $userData = $request->only($signupFields);
-
-        $validator = Validator::make($userData, $signupFieldRules);
-
-        if($validator->fails()) {
-            throw new ValidationHttpException($validator->errors()->all());
-        }
-
-        User::unguard();
-        $user = User::create($userData);
-        User::reguard();
-
-        if(!$user->id) {
-            return $this->response->error('could_not_create_user', 500);
-        }
-
-        if($hasToReleaseToken) {
-            return $this->login($request);
-        }
-        
-        return $this->response->created();
-    }
+    }    
 }

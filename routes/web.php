@@ -15,5 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('api', 'Api\ApiAuthController@authenticate');
-Route::get('api/signup', 'Api\ApiAuthController@signup');
+Route::post('api/login', function () {
+   $credentials = Input::only('email', 'password');
+
+   if ( ! $token = JWTAuth::attempt($credentials)) {
+       return Response::json(false, HttpResponse::HTTP_UNAUTHORIZED);
+   }
+
+   return Response::json(compact('token'));
+});
+
+Route::post('api/register', function () {
+   $credentials = Input::only('email', 'password');
+
+   try {
+       $user = User::create($credentials);
+   } catch (Exception $e) {
+       return Response::json(['error' => 'User already exists.'], HttpResponse::HTTP_CONFLICT);
+   }
+
+   $token = JWTAuth::fromUser($user);
+
+   return Response::json(compact('token'));
+});
