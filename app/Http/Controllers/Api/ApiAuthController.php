@@ -7,12 +7,23 @@ use Illuminate\Http\Request;
 use App\User;
 use Hash;
 use JWTAuth;
+use Validator;
 
 class ApiAuthController extends Controller
 {
     public function register(Request $request)
     {        
     	$input = $request->only('email', 'password');
+        
+        $validator = Validator::make($credentials, [
+            'email' => 'required|unique:User',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            throw new ValidationHttpException($validator->errors()->all());
+        }
+
     	$input['password'] = Hash::make($input['password']);
     	User::create($input);
         return response()->json(['result'=>true]);

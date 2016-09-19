@@ -27,9 +27,15 @@ Route::group(['middleware' => ['api','cors'],'prefix' => 'api'], function () {
 });
 */
 
-Route::group(['middleware' => ['api','cors']], function () {
+//https://moviecrew.herokuapp.com/api/login?email=&password=boner123
+
+Route::group(['middleware' => ['api','cors']], function () 
+{
+    // Grupo Normal
     Route::post('register', 'Api\ApiAuthController@register');
     Route::post('login', 'Api\ApiAuthController@login');
+
+    //Este Grupo Necesita Token (usa el middleware jwt-auth)
     Route::group(['middleware' => 'jwt-auth'], function () {
     	Route::post('get_user_details', 'Api\ApiAuthController@get_user_details');
     });
