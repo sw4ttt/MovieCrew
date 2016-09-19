@@ -35,10 +35,9 @@ class ApiAuthController extends Controller
     public function signup(Request $request)
     {
         $signupFields = [
-            'name', 'email', 'password'
+            'email', 'password'
             ];
         $signupFieldRules = [
-            'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6'
             ];  
