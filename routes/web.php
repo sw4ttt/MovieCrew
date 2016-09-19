@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('api', 'Api\ApiAuthController@authenticate');
+Route::get('api/signup', 'Api\ApiAuthController@signup');
