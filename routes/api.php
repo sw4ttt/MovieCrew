@@ -19,4 +19,4 @@ Route::get('/api', function (Request $request) {
 })->middleware('auth:api');
 */
 
-Route::get('/api', 'Api/ApiAuthController@authenticate');
+Route::get('/api', 'Api/ApiAuthController@authenticate')->middleware('api');
