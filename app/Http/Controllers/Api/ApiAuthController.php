@@ -21,7 +21,8 @@ class ApiAuthController extends Controller
         ]);
 
         if($validator->fails()) {
-            throw new ValidationHttpException($validator->errors()->all());
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json(['error' => 'validation error']);
         }
 
     	$input['password'] = Hash::make($input['password']);
@@ -39,7 +40,8 @@ class ApiAuthController extends Controller
         ]);
 
         if($validator->fails()) {
-            throw new ValidationHttpException($validator->errors()->all());
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json(['error' => 'validation error']);
         }
 
     	if (!$token = JWTAuth::attempt($input)) {
