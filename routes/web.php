@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+//https://moviecrew.herokuapp.com/api/login?email=&password=boner123
 Route::group(['middleware' => ['api','cors'],'prefix' => 'api'], function () {
     Route::post('register', 'Api\ApiAuthController@register');
     Route::post('login', 'Api\ApiAuthController@login');
