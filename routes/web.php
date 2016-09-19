@@ -16,8 +16,8 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['api'],'prefix' => 'api'], function () {
-    Route::post('register', 'Api\ApiAuthController@register');
-    Route::post('login', 'Api\ApiAuthController@login');
+    Route::get('register', 'Api\ApiAuthController@register');
+    Route::get('login', 'Api\ApiAuthController@login');
     Route::group(['middleware' => 'jwt-auth'], function () {
     	Route::post('get_user_details', 'Api\ApiAuthController@get_user_details');
     });
