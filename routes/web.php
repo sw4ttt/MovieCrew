@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('api', 'Api/ApiAuthController@authenticate');
+Route::get('api', 'Api\ApiAuthController@authenticate');
