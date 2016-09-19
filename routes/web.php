@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => ['api'],'prefix' => 'api'], function () {
+Route::group(['middleware' => ['api','cors'],'prefix' => 'api'], function () {
     Route::get('register', 'Api\ApiAuthController@register');
     Route::get('login', 'Api\ApiAuthController@login');
     Route::group(['middleware' => 'jwt-auth'], function () {
