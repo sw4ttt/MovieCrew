@@ -16,7 +16,7 @@ class ApiAuthController extends Controller
     	$input = $request->only('email', 'password');
         
         $validator = Validator::make($input, [
-            'email' => 'required|unique:user',
+            'email' => 'required|unique',
             'password' => 'required',
         ]);
 
