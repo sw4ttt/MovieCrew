@@ -13,7 +13,7 @@ class CreateMoviesTable extends Migration
      */
     public function up()
     {
-        Schema::table('movies', function (Blueprint $table) {
+        Schema::create('movies', function (Blueprint $table) {
             //
             $table->increments('id');
             $table->string('imdbid')->unique();
@@ -30,9 +30,6 @@ class CreateMoviesTable extends Migration
      */
     public function down()
     {
-        Schema::table('movies', function (Blueprint $table) {
-            //
-            Schema::drop('movies');
-        });
+        Schema::drop('movies');
     }
 }
