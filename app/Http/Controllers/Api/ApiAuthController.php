@@ -41,7 +41,8 @@ class ApiAuthController extends Controller
 
         if($validator->fails()) {
             //throw new ValidationHttpException($validator->errors()->all());
-            return response()->json(['error' => 'validation error']);
+            //return response()->json(['error' => 'validation error']);
+            return response()->json($validator->errors()->all());
         }
 
     	if (!$token = JWTAuth::attempt($input)) {
