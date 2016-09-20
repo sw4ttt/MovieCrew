@@ -17,7 +17,7 @@ class MoviesController extends Controller
     public function index()
     {
         //
-        return App\Flight::all();
+        return App\Movie::all();
     }
 
     /**
