@@ -48,7 +48,7 @@ class ApiAuthController extends Controller
     	if (!$token = JWTAuth::attempt($input)) {
             return response()->json(['result' => 'wrong email or password.']);
         }
-        	return response()->json(['result' => $token]);
+        	return response()->json(['token' => $token]);
     }
     
     public function get_user_details(Request $request)
