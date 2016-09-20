@@ -41,6 +41,8 @@ class ApiAuthController extends Controller
 
         if($validator->fails()) {
             //throw new ValidationHttpException($validator->errors()->all());
+            $errors = $validator->errors();
+
             $arrayErrors = array();
 
             foreach ($errors->all() as $message)
@@ -49,7 +51,7 @@ class ApiAuthController extends Controller
             }
             return response()->json($arrayErrors);
         }
-        
+
     	if (!$token = JWTAuth::attempt($input)) {
             return response()->json(['result' => 'wrong email or password.']);
         }
