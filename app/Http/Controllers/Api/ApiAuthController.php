@@ -45,9 +45,12 @@ class ApiAuthController extends Controller
 
             $arrayErrors = array();
 
+            array_add(['name' => 'Desk'], 'price', 100);
+
             foreach ($errors->all() as $message)
             {
-                $arrayErrors = array_add(['error' => $message]);
+                array_add($arrayErrors, ['error' => $message]);
+                //$arrayErrors = array_add(['error' => $message]);
             }
             return response()->json($arrayErrors);
         }
