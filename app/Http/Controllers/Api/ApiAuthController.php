@@ -17,7 +17,7 @@ class ApiAuthController extends Controller
         
         $validator = Validator::make($input, [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:4',
         ]);
 
         if($validator->fails()) {
@@ -36,7 +36,7 @@ class ApiAuthController extends Controller
         
         $validator = Validator::make($input, [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:4',
         ]);
 
         if($validator->fails()) {
