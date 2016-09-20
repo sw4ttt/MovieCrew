@@ -9,7 +9,7 @@ use Hash;
 use JWTAuth;
 use Validator;
 
-class ApiAuthController extends Controller
+class AuthController extends Controller
 {
     public function register(Request $request)
     {        
