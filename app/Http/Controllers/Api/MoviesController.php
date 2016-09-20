@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Movie;
+
 class MoviesController extends Controller
 {
     /**
@@ -17,16 +19,7 @@ class MoviesController extends Controller
     public function index()
     {
         //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return App\Flight::all();
     }
 
     /**
@@ -38,6 +31,28 @@ class MoviesController extends Controller
     public function store(Request $request)
     {
         //
+        $input = $request->only('imdbid','title','imdbrating');
+        
+        $validator = Validator::make($input, [
+            'imdbid' => 'required|unique:movies,imdbid',
+            'title' => 'required',
+            'imdbrating' => 'required',
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+
+        $movie = new Movie;
+
+        $movie->imdbid = $request->imdbid;
+        $movie->title = $request->title;
+        $movie->imdbrating = $request->imdbrating;
+
+        $movie->save();
+
+        return response()->json(['result'=>'true']);
     }
 
     /**
