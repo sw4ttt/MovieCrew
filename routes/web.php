@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+
+    return 'MovieCrew Home TEST';
 });
 
 Route::get('/login', function () {
@@ -35,7 +37,7 @@ Route::group(['middleware' => ['auth']], function ()
         return view('dashboard');
     });
 
-    Route::get('/adminpanel', function () {
+    /*Route::get('/adminpanel', function () {
         $user = Auth::user();
         if (Gate::forUser($user)->allows('view_admin_panel')) {
             // User is Admin, redirect to AdminPanel.
@@ -44,14 +46,7 @@ Route::group(['middleware' => ['auth']], function ()
         // User is NOT an Admin, redirect to Dashboard.
         return redirect('dashboard')->with('error','User is Not an Admin');
     });
-
-    Route::get('/adminpaneltest', function () {
-        return view('admin/adminpaneltest');
-    });
-
-    Route::get('/mapstore', function () {
-        return view('admin/mapstore');
-    });
+    */
 });
 
 
