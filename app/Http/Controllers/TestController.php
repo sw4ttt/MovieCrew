@@ -37,7 +37,7 @@ class TestController extends Controller
  
            $client = new GuzzleHttpClient();
  
-           $apiRequest = $client->request('GET', 'http://www.omdbapi.com/?t=the+matrix&y=&plot=short&r=json');
+           $apiRequest = $client->request('GET', 'http://api.myapifilms.com/imdb/idIMDB?title=matrix&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba');
  
           // echo $apiRequest->getStatusCode());
           // echo $apiRequest->getHeader('content-type'));
@@ -45,7 +45,7 @@ class TestController extends Controller
           $content = json_decode($apiRequest->getBody()->getContents());
 
           //var_dump($content);
-          return $content->Title;
+          return $content;
  
       } catch (RequestException $re) {
           //For handling exception
