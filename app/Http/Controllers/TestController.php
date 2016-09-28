@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as GuzzleHttpClient;
+use GuzzleHttp\Exception\RequestException;
 
 class TestController extends Controller
 {
@@ -14,6 +15,7 @@ class TestController extends Controller
 
     public function index()
     {
+        /*
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', 'http://www.omdbapi.com/?t=the+matrix&y=&plot=short&r=json');
         //var_dump($res);
@@ -27,6 +29,28 @@ class TestController extends Controller
         //var_dump($elements[0]) ;
 
         return $elements.'Title';
+
+        */
+
+
+        try {
+ 
+           $client = new GuzzleHttpClient();
+ 
+           $apiRequest = $client->request('GET', 'http://www.omdbapi.com/?t=the+matrix&y=&plot=short&r=json', [
+                'query' => ['plain' => 'Ab1L853Z24N']
+          ]);
+ 
+          // echo $apiRequest->getStatusCode());
+          // echo $apiRequest->getHeader('content-type'));
+ 
+          $content = json_decode($apiRequest->getBody()->getContents());
+
+          return $content;
+ 
+      } catch (RequestException $re) {
+          //For handling exception
+      }
 
     }
 }
