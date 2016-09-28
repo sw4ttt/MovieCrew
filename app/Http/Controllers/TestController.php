@@ -46,7 +46,7 @@ class TestController extends Controller
  
           $content = json_decode($apiRequest->getBody()->getContents());
 
-          return $content;
+          return (string)$content;
  
       } catch (RequestException $re) {
           //For handling exception
