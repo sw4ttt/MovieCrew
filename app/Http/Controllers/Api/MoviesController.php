@@ -32,9 +32,19 @@ class MoviesController extends Controller
         $input = $request->only('imdbid','title','imdbrating');
         
         $validator = Validator::make($input, [
-            'imdbid' => 'required|unique:movies,imdbid',
+            'idIMDB' => 'required|unique:movies,idIMDB',
             'title' => 'required',
-            'imdbrating' => 'required',
+            'year' => 'required',
+            'runtime' => 'required',
+            'urlPoster' => 'required',
+            'urlIMDB' => 'required',
+            'plot' => 'required',
+            'ratingIMDB' => 'required',
+            'ratingMC' => 'required',
+            'rated' => 'required',
+            'votes' => 'required',
+            'metascore' => 'required',
+            'byUser' => 'required',
         ]);
 
         if($validator->fails()) {
@@ -46,7 +56,17 @@ class MoviesController extends Controller
 
         $movie->imdbid = $request->imdbid;
         $movie->title = $request->title;
-        $movie->imdbrating = $request->imdbrating;
+        $movie->year = $request->year;
+        $movie->runtime = $request->runtime;
+        $movie->urlPoster = $request->urlPoster;
+        $movie->urlIMDB = $request->urlIMDB;
+        $movie->plot = $request->plot;
+        $movie->ratingIMDB = $request->ratingIMDB;
+        $movie->ratingMC = $request->ratingMC;
+        $movie->rated = $request->rated;
+        $movie->votes = $request->votes;
+        $movie->metascore = $request->metascore;
+        $movie->byUser = $request->byUser;
 
         $movie->save();
 
@@ -59,9 +79,30 @@ class MoviesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idIMDB)
     {
-        //
+        $movie = Movie::find($idIMDB);
+
+        if (is_null($movie))
+        {
+            return response()->json(['result' => 'movie not found.']);
+        }
+        return response()->json(
+            ['result' => true],
+            ['idIMDB' => $movie->idIMDB],
+            ['title' => $movie->title],
+            ['year' => $movie->year],
+            ['runtime' => $movie->runtime],
+            ['urlPoster' => $movie->urlPoster],
+            ['urlIMDB' => $movie->urlIMDB],
+            ['plot' => $movie->plot],
+            ['ratingIMDB' => $movie->ratingIMDB],
+            ['ratingMC' => $movie->ratingMC],
+            ['rated' => $movie->rated],
+            ['votes' => $movie->votes],
+            ['metascore' => $movie->metascore],
+            ['byUser' => $movie->byUser]
+            );
     }
 
     /**

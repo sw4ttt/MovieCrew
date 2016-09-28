@@ -11,14 +11,13 @@
 |
 */
 
-/*
+
 Route::get('/', function () {
     //return view('welcome');
     return 'MovieCrew Home TEST';
 });
-*/
 
-Route::get('/', 'TestController@index');
+
 
 Route::get('/login', function () {
     return view('auth/login');

@@ -16,9 +16,19 @@ class CreateMoviesTable extends Migration
         Schema::create('movies', function (Blueprint $table) {
             //
             $table->increments('id');
-            $table->string('imdbid')->unique();
+            $table->string('idIMDB')->unique();            
             $table->string('title');
-            $table->string('imdbrating');
+            $table->string('year');
+            $table->string('runtime');
+            $table->string('urlPoster');
+            $table->string('urlIMDB');
+            $table->string('plot');
+            $table->string('ratingIMDB');
+            $table->string('ratingMC');
+            $table->string('rated');
+            $table->string('votes');
+            $table->string('metascore');
+            $table->string('byUser');
             $table->timestamps();
         });
     }
