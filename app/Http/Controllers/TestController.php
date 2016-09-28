@@ -37,8 +37,7 @@ class TestController extends Controller
  
            $client = new GuzzleHttpClient();
  
-           $apiRequest = $client->request('GET', 'http://www.omdbapi.com/?t=the+matrix&y=&plot=short&r=json'
-          ]);
+           $apiRequest = $client->request('GET', 'http://www.omdbapi.com/?t=the+matrix&y=&plot=short&r=json');
  
           // echo $apiRequest->getStatusCode());
           // echo $apiRequest->getHeader('content-type'));
