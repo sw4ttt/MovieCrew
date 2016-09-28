@@ -9,10 +9,10 @@ class Movie extends Model
 {
     //
     protected $table = 'movies';
-    protected $primaryKey = 'idIMDB';
+    protected $primaryKey = 'IMDBid';
 
     protected $fillable = [
-        'idIMDB',
+        'IMDBid',
         'title',
         'year',
         'runtime',

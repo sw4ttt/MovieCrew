@@ -35,7 +35,7 @@ class MoviesController extends Controller
     {
         //
         $input = $request->only(
-            'idIMDB',
+            'IMDBid',
             'title',
             'year',
             'runtime',
@@ -51,7 +51,7 @@ class MoviesController extends Controller
             );
         
         $validator = Validator::make($input, [
-            'idIMDB' => 'required|unique:movies,idIMDB',
+            'IMDBid' => 'required|unique:movies,IMDBid',
             'title' => 'required',
             'year' => 'required',
             'runtime' => 'required',
@@ -73,7 +73,7 @@ class MoviesController extends Controller
 
         $movie = new Movie;
 
-        $movie->idIMDB = $request->idIMDB;
+        $movie->IMDBid = $request->IMDBid;
         $movie->title = $request->title;
         $movie->year = $request->year;
         $movie->runtime = $request->runtime;
@@ -108,7 +108,7 @@ class MoviesController extends Controller
         }
         return response()->json(
             ['result' => true],
-            ['idIMDB' => $movie->idIMDB],
+            ['IMDBid' => $movie->IMDBid],
             ['title' => $movie->title],
             ['year' => $movie->year],
             ['runtime' => $movie->runtime],
