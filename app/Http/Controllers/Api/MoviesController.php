@@ -73,7 +73,7 @@ class MoviesController extends Controller
 
         $movie = new Movie;
 
-        $movie->imdbid = $request->imdbid;
+        $movie->idIMDB = $request->imdbid;
         $movie->title = $request->title;
         $movie->year = $request->year;
         $movie->runtime = $request->runtime;
