@@ -34,7 +34,21 @@ class MoviesController extends Controller
     public function store(Request $request)
     {
         //
-        $input = $request->only('imdbid','title','imdbrating');
+        $input = $request->only(
+            'idIMDB',
+            'title',
+            'year',
+            'runtime',
+            'urlPoster',
+            'urlIMDB',
+            'plot',
+            'ratingIMDB',
+            'ratingMC',
+            'rated',
+            'votes',
+            'metascore',
+            'byUser'
+            );
         
         $validator = Validator::make($input, [
             'idIMDB' => 'required|unique:movies,idIMDB',
