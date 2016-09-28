@@ -19,7 +19,7 @@ class TestController extends Controller
         //var_dump($res);
         //return  $res->getBody();
 
-        //return json_decode($res->getBody());
+        return json_decode($res->getBody());
 
     }
 }
