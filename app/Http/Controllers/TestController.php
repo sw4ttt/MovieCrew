@@ -20,7 +20,11 @@ class TestController extends Controller
         //return  $res->getBody();
 
         foreach ($res->getBody() as $name => $values) {
-            echo $name . ': ' . implode(', ', $values) . "\r\n";
+            echo "(";
+            echo $name;
+            echo "-";
+            echo $values;
+            echo ") - ";  
         }
 
     }
