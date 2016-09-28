@@ -26,7 +26,7 @@ class TestController extends Controller
 
         //var_dump($elements[0]) ;
 
-        return $elements;
+        return $elements.Title;
 
     }
 }
