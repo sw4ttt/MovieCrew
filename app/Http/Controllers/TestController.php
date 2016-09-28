@@ -18,5 +18,10 @@ class TestController extends Controller
         $res = $client->request('GET', 'http://www.omdbapi.com/?t=the+matrix&y=&plot=short&r=json');
         //var_dump($res);
         return  $res->getBody();
+
+        foreach ($res->getBody() as $name => $values) {
+            echo $name . ': ' . implode(', ', $values) . "\r\n";
+        }
+
     }
 }
