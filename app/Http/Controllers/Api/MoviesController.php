@@ -18,8 +18,11 @@ class MoviesController extends Controller
     {
         //
         $movies = Movie::all();
-
-        return $movies->isEmpty();
+        if ($movies->isEmpty())
+        {
+            response()->json(['result'=>'empty']);
+        }
+        return $movies;
     }
 
     /**
