@@ -18,8 +18,11 @@ class TestController extends Controller
         $res = $client->request('GET', 'http://www.omdbapi.com/?t=the+matrix&y=&plot=short&r=json');
         //var_dump($res);
         //return  $res->getBody();
+        $elements = $res->getBody();
 
-        return json_decode($res->getBody());
+        var_dump($elements->Title);
+
+        //return json_decode($res->getBody());
 
     }
 }
