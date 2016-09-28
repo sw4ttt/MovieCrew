@@ -14,7 +14,8 @@ class TestController extends Controller
 
     public function index()
     {
-        //
-        return "HOME";
+        $client = new \GuzzleHttp\Client();
+        $res = $client->request('GET', 'http://www.omdbapi.com/?t=matrix&y=&plot=short&r=json');
+        return  $res->getStatusCode();
     }
 }
