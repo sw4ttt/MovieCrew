@@ -19,7 +19,7 @@ class MoviesController extends Controller
         //
         $movies = Movie::all();
 
-        return isEmpty($movies);
+        return $movies->isEmpty();
     }
 
     /**
