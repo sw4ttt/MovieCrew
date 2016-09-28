@@ -17,7 +17,9 @@ class MoviesController extends Controller
     public function index()
     {
         //
-        return Movie::all();
+        $movies = Movie::all();
+
+        return isEmpty($movies);
     }
 
     /**
