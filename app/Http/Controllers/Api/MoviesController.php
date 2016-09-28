@@ -18,7 +18,7 @@ class MoviesController extends Controller
     {
         //
         $movies = Movie::all();
-        if ($movies->isEmpty())
+        if ($movies->count() == 0)
         {
             response()->json(['result'=>'empty']);
         }
