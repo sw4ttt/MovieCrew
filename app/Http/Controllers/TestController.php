@@ -44,7 +44,7 @@ class TestController extends Controller
  
           $content = json_decode($apiRequest->getBody()->getContents());
 
-          var_dump($content->data->movies);
+          var_dump($content->data->movies[0]);
           //return $content->data->movies;
  
       } catch (RequestException $re) {
