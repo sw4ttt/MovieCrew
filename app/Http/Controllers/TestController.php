@@ -16,7 +16,7 @@ class TestController extends Controller
     {
         $client = new \GuzzleHttp\Client();
         $res = $client->request('GET', 'http://www.omdbapi.com/?t=matrix&y=&plot=short&r=json');
-        var_dump($res);
-        return  $res->getStatusCode();
+        //var_dump($res);
+        return  $res->getBody();
     }
 }
