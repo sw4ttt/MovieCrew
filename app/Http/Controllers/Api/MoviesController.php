@@ -22,6 +22,7 @@ class MoviesController extends Controller
         {
             response()->json(['result'=>'empty']);
         }
+        var_dump($movies->count());
         return $movies;
     }
 
