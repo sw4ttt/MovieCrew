@@ -20,7 +20,7 @@ class TestController extends Controller
         //return  $res->getBody();
         $elements = $res->getBody();
 
-        return $elements;
+        return (array)$elements;
 
         //return json_decode($res->getBody());
 
