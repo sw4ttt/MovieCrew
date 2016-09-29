@@ -115,10 +115,11 @@ class MoviesController extends Controller
 
         $movie = Movie::find($request->IMDBid);
 
-        if (is_null($movie))
+        /*if (is_null($movie))
         {
             return response()->json(['result' => 'empty']);
         }
+        */
         return response()->json(
             ['result' => true],
             ['IMDBid' => $movie->IMDBid],
