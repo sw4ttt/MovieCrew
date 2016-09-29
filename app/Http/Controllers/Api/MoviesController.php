@@ -105,7 +105,7 @@ class MoviesController extends Controller
         );
 
         $validator = Validator::make($input, [
-            'IMDBid' => 'required|unique:movies,IMDBid'
+            'IMDBid' => 'required'
         ]);
 
         if($validator->fails()) {
