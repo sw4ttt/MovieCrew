@@ -98,13 +98,26 @@ class MoviesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idIMDB)
+    public function show(Request $request)
     {
-        $movie = Movie::find($idIMDB);
+        $input = $request->only(
+            'IMDBid'
+        );
+
+        $validator = Validator::make($input, [
+            'IMDBid' => 'required|unique:movies,IMDBid'
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+
+        $movie = Movie::find($request->IMDBid);
 
         if (is_null($movie))
         {
-            return response()->json(['result' => 'movie not found.']);
+            return response()->json(['result' => 'empty']);
         }
         return response()->json(
             ['result' => true],
