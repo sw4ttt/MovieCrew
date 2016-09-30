@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Movie;
 use App\Crew;
+use Validator;
 
 use App\Http\Requests;
 
