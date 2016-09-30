@@ -26,5 +26,10 @@ class Movie extends Model
         'metascore',
         'byUser'
     ];
+
+    public function crew()
+    {
+        return $this->belongsTo('App\Crew','crewid');
+    }
     
 }
