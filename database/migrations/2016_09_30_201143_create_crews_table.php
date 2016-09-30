@@ -15,6 +15,8 @@ class CreateCrewsTable extends Migration
     {
         Schema::create('crews', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('crewid'); 
+            $table->string('name'); 
             $table->timestamps();
         });
     }
