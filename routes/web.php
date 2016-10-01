@@ -14,7 +14,7 @@
 
 Route::get('/', function () {
     //return view('welcome');
-    return 'MovieCrew Home TEST';
+    return view('auth/login');
 });
 
 
