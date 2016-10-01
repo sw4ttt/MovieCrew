@@ -23,15 +23,15 @@ Route::get('/login', function () {
     return view('auth/login');
 })->name('login');;
 
-Route::post('/login', 'Auth\AuthController@login');
+Route::post('/login', 'Web\Auth\AuthController@login');
 
 Route::get('/register', function () {
     return view('auth/register');
 })->name('register');;
 
-Route::post('/register', 'Auth\AuthController@register');
+Route::post('/register', 'Web\Auth\AuthController@register');
 
-Route::post('/logout', 'Auth\AuthController@logout');
+Route::post('/logout', 'Web\Auth\AuthController@logout');
 
 Route::group(['middleware' => ['auth']], function () 
 {
