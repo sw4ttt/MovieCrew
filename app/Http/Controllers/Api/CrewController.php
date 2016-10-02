@@ -114,7 +114,7 @@ class CrewController extends Controller
             return response()->json(['result' => 'empty']);
         }
 
-        return $crew->user()->email;
+        return $crew->user->email;
     }
 
     /**
