@@ -9,7 +9,7 @@ class Crew extends Model
     //
 
     protected $table = 'crews';
-    protected $primaryKey = 'crewid';
+    protected $primaryKey = 'id';
 
 
     protected $fillable = [
