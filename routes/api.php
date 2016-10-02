@@ -43,7 +43,7 @@ Route::group(['middleware' => ['api','cors']], function ()
     Route::get('crews', 'Api\CrewController@index');
     Route::post('addcrew', 'Api\CrewController@store');
     Route::post('getcrew', 'Api\CrewController@show');
-    Route::post('getusercrew', 'Api\CrewController@showuser');
+    Route::post('getusercrews', 'Api\CrewController@showuser');
 
     //Este Grupo Necesita Token (usa el middleware jwt-auth)
     Route::group(['middleware' => 'jwt-auth'], function () {
