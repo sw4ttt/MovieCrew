@@ -52,7 +52,7 @@ class CrewController extends Controller
         $crew->name = $request->name;
         $crew->user_id = $request->user_id;
 
-        $crew->save();
+        //$crew->save();
 
         return response()->json(['result'=>'true']);
     }
