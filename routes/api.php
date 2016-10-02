@@ -32,9 +32,9 @@ Route::group(['middleware' => ['api','cors'],'prefix' => 'api'], function () {
 Route::group(['middleware' => ['api','cors']], function () 
 {
     // Grupo Normal
-    Route::post('register', 'Api\AuthController@register');
-    Route::post('login', 'Api\AuthController@login');
-    Route::post('deleteuser', 'Api\AuthController@delete');
+    Route::post('register', 'Api\Auth\AuthController@register');
+    Route::post('login', 'Api\Auth\AuthController@login');
+    Route::post('deleteuser', 'Api\Auth\AuthController@delete');
 
 
     Route::get('movies', 'Api\MoviesController@index');
