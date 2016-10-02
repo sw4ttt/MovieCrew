@@ -33,13 +33,11 @@ class CrewController extends Controller
     {
         //
         $input = $request->only(
-            'crewid',
             'name'
             );
         
         $validator = Validator::make($input, [
-            'crewid' => 'required|unique:crews,crewid',
-            'name' => 'required'
+            'name' => 'required|unique:crews,name'
         ]);
 
         if($validator->fails()) {
@@ -49,7 +47,6 @@ class CrewController extends Controller
 
         $crew = new Crew;
 
-        $crew->crewid = $request->crewid;
         $crew->name = $request->name;
 
         $crew->save();
@@ -66,11 +63,11 @@ class CrewController extends Controller
     public function show(Request $request)
     {
         $input = $request->only(
-            'crewid'
+            'id'
         );
 
         $validator = Validator::make($input, [
-            'crewid' => 'required'
+            'id' => 'required'
         ]);
 
         if($validator->fails()) {
@@ -87,7 +84,7 @@ class CrewController extends Controller
         
         return response()->json(
             ['result' => true],
-            ['crewid' => $crew->crewid],
+            ['id' => $crew->id],
             ['name' => $crew->name]
             );
     }
