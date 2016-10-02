@@ -107,7 +107,7 @@ class CrewController extends Controller
             return response()->json($validator->errors());
         }
         
-        $crew = Crew::find($request->crew);
+        $crew = Crew::find($request->id);
 
         if (is_null($crew))
         {
