@@ -92,6 +92,31 @@ class CrewController extends Controller
             );
     }
 
+    public function showUser(Request $request)
+    {
+        $input = $request->only(
+            'id'
+        );
+
+        $validator = Validator::make($input, [
+            'id' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+        
+        $crew = Crew::find($request->crew);
+
+        if (is_null($crew))
+        {
+            return response()->json(['result' => 'empty']);
+        }
+
+        return $crew->user();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

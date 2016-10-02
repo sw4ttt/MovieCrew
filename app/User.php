@@ -16,7 +16,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         //'name', 'email', 'password',
-        'email', 'password',
+        'email', 
+        'password',
     ];
 
     /**
@@ -27,4 +28,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function crews()
+    {
+        return $this->hasMany('App\Crew');
+    }
 }

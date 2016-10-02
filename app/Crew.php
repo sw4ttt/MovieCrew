@@ -17,8 +17,8 @@ class Crew extends Model
         'user_id'
     ];
 
-    public function movies()
+    public function user()
     {
-        return $this->hasMany('App\Movie','IMDBid');
+        return $this->belongsTo('App\User','user_id','id');
     }
 }

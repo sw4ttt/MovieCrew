@@ -38,10 +38,12 @@ Route::group(['middleware' => ['api','cors']], function ()
     Route::get('movies', 'Api\MoviesController@index');
     Route::post('addmovie', 'Api\MoviesController@store');
     Route::post('getmovie', 'Api\MoviesController@show');
+    
 
     Route::get('crews', 'Api\CrewController@index');
     Route::post('addcrew', 'Api\CrewController@store');
     Route::post('getcrew', 'Api\CrewController@show');
+    Route::post('getusercrew', 'Api\CrewController@showuser');
 
     //Este Grupo Necesita Token (usa el middleware jwt-auth)
     Route::group(['middleware' => 'jwt-auth'], function () {
