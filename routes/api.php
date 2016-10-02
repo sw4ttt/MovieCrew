@@ -34,6 +34,8 @@ Route::group(['middleware' => ['api','cors']], function ()
     // Grupo Normal
     Route::post('register', 'Api\AuthController@register');
     Route::post('login', 'Api\AuthController@login');
+    Route::post('deleteuser', 'Api\AuthController@delete');
+
 
     Route::get('movies', 'Api\MoviesController@index');
     Route::post('addmovie', 'Api\MoviesController@store');
