@@ -92,7 +92,7 @@ class CrewController extends Controller
             );
     }
 
-    public function showUser(Request $request)
+    public function showCrewUser(Request $request)
     {
         $input = $request->only(
             'id'
@@ -116,6 +116,32 @@ class CrewController extends Controller
 
         //return $crew->user->email;
         return $crew->user->toJson();
+    }
+
+    public function showUserCrews(Request $request)
+    {
+        $input = $request->only(
+            'id'
+        );
+
+        $validator = Validator::make($input, [
+            'id' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+        
+        $user = User::find($request->id);
+
+        if (is_null($user))
+        {
+            return response()->json(['result' => 'empty']);
+        }
+
+        //return $crew->user->email;
+        return $user->crews->toJson();
     }
 
     /**
