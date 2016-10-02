@@ -13,8 +13,8 @@ class Crew extends Model
 
 
     protected $fillable = [
-        'crewid',
-        'name'
+        'name',
+        'user_id'
     ];
 
     public function movies()
