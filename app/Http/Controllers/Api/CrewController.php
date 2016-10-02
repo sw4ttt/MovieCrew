@@ -33,11 +33,13 @@ class CrewController extends Controller
     {
         //
         $input = $request->only(
-            'name'
+            'name',
+            'user_id'
             );
         
         $validator = Validator::make($input, [
-            'name' => 'required|unique:crews,name'
+            'name' => 'required|unique:crews,name',
+            'user_id' => 'required|exists:users,id'
         ]);
 
         if($validator->fails()) {
@@ -48,6 +50,7 @@ class CrewController extends Controller
         $crew = new Crew;
 
         $crew->name = $request->name;
+        $crew->user_id = $request->user_id;
 
         $crew->save();
 
