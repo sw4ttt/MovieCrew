@@ -56,16 +56,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -74,6 +64,43 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function addCrewToUser(Request $request)
+    {
+        $input = $request->only(
+            'user_id',
+            'crew_id'
+        );
+
+        $validator = Validator::make($input, [
+            'user_id' => 'required',
+            'crew_id' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+
+        $user = User::find($request->user_id);
+
+        if (!$user)
+        {
+            return response()->json(['result'=>'user with given id not found.']);    
+        }
+
+        $crew = Crew::find($request->crew_id);
+
+        if (!$crew)
+        {
+            return response()->json(['result'=>'crew with given id not found.']);    
+        }
+
+        $user->crews()->attach($request->user_id);   
+
+        return response()->json(['result'=>'true']);  
+
     }
 
     /**

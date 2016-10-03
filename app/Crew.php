@@ -13,17 +13,11 @@ class Crew extends Model
 
 
     protected $fillable = [
-        'name',
-        'user_id'
+        'name'
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\User','user_id','id');
-    }
-
-    public function movies()
-    {
-        return $this->hasMany('App\Movies');
+        return $this->belongsToMany('App\User','crew_user')->withTimestamps();
     }
 }

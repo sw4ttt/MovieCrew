@@ -33,14 +33,26 @@ class CrewController extends Controller
     public function store(Request $request)
     {
         //
+        /*
         $input = $request->only(
             'name',
             'user_id'
             );
+        */
+
+        $input = $request->only(
+            'name'
+            );
         
+        /*
         $validator = Validator::make($input, [
             'name' => 'required',
             'user_id' => 'required|exists:users,id'
+        ]);
+        */
+
+        $validator = Validator::make($input, [
+            'name' => 'required'
         ]);
 
         if($validator->fails()) {
@@ -51,7 +63,7 @@ class CrewController extends Controller
         $crew = new Crew;
 
         $crew->name = $request->name;
-        $crew->user_id = $request->user_id;
+        //$crew->user_id = $request->user_id;
 
         $crew->save();
 
@@ -167,6 +179,7 @@ class CrewController extends Controller
     {
         //
     }
+    
 
     /**
      * Remove the specified resource from storage.
