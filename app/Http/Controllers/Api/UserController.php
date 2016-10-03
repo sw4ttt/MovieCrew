@@ -35,7 +35,7 @@ class UserController extends Controller
         );
 
         $validator = Validator::make($input, [
-            'id' => 'required'
+            'id' => 'required|exists:users,id'
         ]);
 
         if($validator->fails()) {
