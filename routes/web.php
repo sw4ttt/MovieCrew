@@ -18,12 +18,6 @@ use App\Movie;
 
 Route::get('/', function () {
 
-
-    $user = App\User::find(1);
-
-    return $user->crews->toJson();
-
-
     $users = User::all();
     if ($users->count() == 0)
     {
@@ -42,9 +36,6 @@ Route::get('/', function () {
     {
         return view('welcome')->with(['users' => $users,'crews' => $crews]);
     }
-
-    
-
 
     return view('welcome')->with(['users' => $users,'crews' => $crews,'movies' => $movies]);
 });
