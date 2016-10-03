@@ -170,9 +170,23 @@ class MoviesController extends Controller
         );
     }
 
-    public function searchMovieDB($IMDBid)
+    public function searchMovieDB(Request $request)
     {
-        $movie = Movie::where('IMDBid', $IMDBid)->first();
+
+        $input = $request->only(
+            'IMDBid'
+        );
+
+        $validator = Validator::make($input, [
+            'IMDBid' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+
+        $movie = Movie::where('IMDBid', $input->IMDBid)->first();
 
         if (!$movie)
         {
