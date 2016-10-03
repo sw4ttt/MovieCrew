@@ -49,7 +49,7 @@ class CrewController extends Controller
             return response()->json($validator->errors());
         }
 
-        $user = User::find($request->id);
+        $user = User::find($request->user_id);
 
         if (!$user->crews->search($request->name))
         {
