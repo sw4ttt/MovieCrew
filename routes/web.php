@@ -12,6 +12,7 @@
 */
 
 use App\User;
+use App\Crew;
 
 
 Route::get('/', function () {
@@ -21,8 +22,14 @@ Route::get('/', function () {
     {
         return view('welcome');
     }
-    return view('welcome')->with('users', $users);
-    //return view('auth/login');
+
+    $crews = Crew::all();
+    if ($crews->count() == 0)
+    {
+        return view('welcome')->with('users', $users);
+    }
+
+    return view('welcome')->with(['users' => $users,'crews' => $crews]);
 });
 
 
