@@ -20,4 +20,9 @@ class Crew extends Model
     {
         return $this->belongsToMany('App\User','crew_user')->withTimestamps();
     }
+
+    public function movies()
+    {
+        return $this->belongsToMany('App\Movie','crew_movie')->withTimestamps();
+    }
 }

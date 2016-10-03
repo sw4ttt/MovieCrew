@@ -28,9 +28,9 @@ class Movie extends Model
         'crew_id'
     ];
 
-    public function crew()
+    public function crews()
     {
-        return $this->belongsTo('App\Crew','crew_id','id');
+        return $this->belongsToMany('App\Crew','crew_movie')->withTimestamps();
     }
     
 }
