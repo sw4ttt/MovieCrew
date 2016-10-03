@@ -59,7 +59,6 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
-                                    <th>User ID</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,7 +66,6 @@
                                     <tr>
                                         <td>{{ $crew->id }}</td>
                                         <td>{{ $crew->name }}</td>
-                                        <td>{{ $crew->user_id }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
