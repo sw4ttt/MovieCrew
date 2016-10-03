@@ -25,11 +25,8 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        @foreach ($users as $user)
-                            <h2>USER: {{ $user->id }}</h2>
-                        @endforeach
                     @endif
-                    
+
                 </div>
             </div>
         </div>
