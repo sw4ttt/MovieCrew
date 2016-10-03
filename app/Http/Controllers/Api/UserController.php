@@ -97,7 +97,7 @@ class UserController extends Controller
             return response()->json(['result'=>'crew with given id not found.']);    
         }
 
-        $user->crews()->attach($request->user_id);   
+        $user->crews()->attach($request->crew_id);   
 
         return response()->json(['result'=>'true']);  
 

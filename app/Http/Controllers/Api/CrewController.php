@@ -33,26 +33,15 @@ class CrewController extends Controller
     public function store(Request $request)
     {
         //
-        /*
+        
         $input = $request->only(
             'name',
             'user_id'
-            );
-        */
-
-        $input = $request->only(
-            'name'
-            );
+        );        
         
-        /*
         $validator = Validator::make($input, [
             'name' => 'required',
             'user_id' => 'required|exists:users,id'
-        ]);
-        */
-
-        $validator = Validator::make($input, [
-            'name' => 'required'
         ]);
 
         if($validator->fails()) {
@@ -66,6 +55,8 @@ class CrewController extends Controller
         //$crew->user_id = $request->user_id;
 
         $crew->save();
+
+        $crew->users()->attach($request->user_id);
 
         return response()->json(['result'=>'true']);
     }
