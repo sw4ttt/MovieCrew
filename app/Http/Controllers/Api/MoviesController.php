@@ -186,7 +186,7 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
-        $movie = Movie::where('IMDBid', $input->IMDBid)->first();
+        $movie = Movie::where('IMDBid', $request->IMDBid)->first();
 
         if (!$movie)
         {
