@@ -35,12 +35,17 @@ class UserController extends Controller
         );
 
         $validator = Validator::make($input, [
-            'id' => 'required|exists:users,id'
+            'id' => 'required'
         ]);
 
         if($validator->fails()) {
             //throw new ValidationHttpException($validator->errors()->all());
             return response()->json($validator->errors());
+        }
+
+        if (!$user)
+        {
+            return response()->json(['result'=>'user with given id not found.']);    
         }
         
         $user = User::find($request->id);
