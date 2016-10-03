@@ -32,8 +32,6 @@
                             <table class="table table-hover table-bordered table-responsive">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Name</th>
                                         <th>User_id</th>
                                         <th>Crew_id</th>
                                     </tr>
@@ -42,8 +40,6 @@
                                     @foreach ($users as $user)
                                         @foreach ($user->crews as $crew_user)
                                             <tr>
-                                                <td>{{ $crew_user->id }}</td>
-                                                <td>{{ $crew_user->name }}</td>
                                                 <td>{{ $crew_user->pivot->user_id }}</td>
                                                 <td>{{ $crew_user->pivot->crew_id }}</td>
                                             </tr>
@@ -72,6 +68,29 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        
+                        @if (isset($movies))
+                            <h2>CREWS MOVIES</h2>
+                            <table class="table table-hover table-bordered table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Crew_id</th>
+                                        <th>Movie_id</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($movies as $movie)
+                                        @foreach ($movie->crews as $crew_movie)
+                                            <tr>
+                                                <td>{{ $crew_movie->pivot->crew_id }}</td>
+                                                <td>{{ $crew_movie->pivot->movie_id }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif 
+
                     @endif
 
                     @if (isset($movies))
@@ -94,8 +113,6 @@
                                         <td>{{ $movie->IMDBid }}</td>
                                         <td>{{ $movie->title }}</td>
                                         <td>{{ $movie->ratingIMDB }}</td>
-                                        <td>{{ $movie->byUser }}</td>
-                                        <td>{{ $movie->crew_id }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -46,8 +46,7 @@ class MoviesController extends Controller
             'ratingMC',
             'rated',
             'votes',
-            'metascore',
-            'byUser'
+            'metascore'
             );
         
         $validator = Validator::make($input, [
@@ -62,8 +61,7 @@ class MoviesController extends Controller
             'ratingMC' => 'required',
             'rated' => 'required',
             'votes' => 'required',
-            'metascore' => 'required',
-            'byUser' => 'required'
+            'metascore' => 'required'
         ]);
 
         if($validator->fails()) {
@@ -85,9 +83,33 @@ class MoviesController extends Controller
         $movie->rated = $request->rated;
         $movie->votes = $request->votes;
         $movie->metascore = $request->metascore;
-        $movie->byUser = $request->byUser;
 
         $movie->save();
+
+        return response()->json(['result'=>'true']);
+    }
+
+    public function addMovieToCrew(Request $request)
+    {
+        //
+        $input = $request->only(
+            'movie_id',
+            'crew_id'
+            );
+        
+        $validator = Validator::make($input, [
+            'crew_id' => 'required|exists:crews,id',
+            'movie_id' => 'required|exists:movies,id'
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+
+        $crew = Crew::find($request->crew_id);
+
+        $crew->movies()->attach($request->movie_id);
 
         return response()->json(['result'=>'true']);
     }
@@ -133,43 +155,7 @@ class MoviesController extends Controller
             ['ratingMC' => $movie->ratingMC],
             ['rated' => $movie->rated],
             ['votes' => $movie->votes],
-            ['metascore' => $movie->metascore],
-            ['byUser' => $movie->byUser],
-            ['crew_id' => $movie->crew_id]
+            ['metascore' => $movie->metascore]
             );
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
