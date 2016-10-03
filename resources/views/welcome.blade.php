@@ -102,8 +102,6 @@
                                     <th>IMDBid</th>
                                     <th>Title</th>
                                     <th>ratingIMDB</th>
-                                    <th>ByUser</th>
-                                    <th>Crew_id</th>
                                 </tr>
                             </thead>
                             <tbody>
