@@ -51,9 +51,12 @@ class CrewController extends Controller
 
         $user = User::find($request->user_id);
 
-        if (!$user->crews->search($request->name))
+        foreach ($user->crews as $crewsOfUser) 
         {
-            return response()->json(['result'=>'false']);
+            if($crewsOfUser->name == $request->name)
+            {
+                return response()->json(['result'=>'false']);
+            }
         }
 
         $crew = new Crew;
