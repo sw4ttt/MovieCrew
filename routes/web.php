@@ -11,10 +11,18 @@
 |
 */
 
+use App\User;
+
 
 Route::get('/', function () {
-    //return view('welcome');
-    return view('auth/login');
+
+    $users = User::all();
+    if ($users->count() == 0)
+    {
+        return view('welcome');
+    }
+    return view('welcome')->with('users', $users);
+    //return view('auth/login');
 });
 
 
