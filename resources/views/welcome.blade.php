@@ -33,6 +33,7 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
+                                    <th>Id</th>
                                     <th>Name</th>
                                     <th>User ID</th>
                                 </tr>
