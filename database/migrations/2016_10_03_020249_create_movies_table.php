@@ -30,8 +30,8 @@ class CreateMoviesTable extends Migration
             $table->string('metascore');
             $table->string('byUser');
 
-            $table->integer('crew_id')->unsigned();
-            $table->foreign('crew_id')->references('id')->on('crews')->onDelete('cascade');
+            //$table->integer('crew_id')->unsigned();
+            //$table->foreign('crew_id')->references('id')->on('crews')->onDelete('cascade');
 
             $table->timestamps();
         });
