@@ -39,7 +39,7 @@ class TestController extends Controller
 
             //return response()->json(['error' => 'Error Api myapifilms not 200']);
 
-            return $content;
+            return dd($content);
 
             /*
             {[{
