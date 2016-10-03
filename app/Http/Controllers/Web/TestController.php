@@ -36,7 +36,9 @@ class TestController extends Controller
             //var_dump($content->data->movies[0]->title);
             //return $content->data->movies[0]->title;
 
-            return response()->json(['error' => 'Error Api myapifilms not 200']);
+            //return response()->json(['error' => 'Error Api myapifilms not 200']);
+
+            return $content;
 
             /*
             {[{

@@ -15,9 +15,10 @@ use App\User;
 use App\Crew;
 use App\Movie;
 
-
+/*
 Route::get('/', function () {
 
+    
     $users = User::all();
     if ($users->count() == 0)
     {
@@ -38,7 +39,11 @@ Route::get('/', function () {
     }
 
     return view('welcome')->with(['users' => $users,'crews' => $crews,'movies' => $movies]);
+    
 });
+*/
+
+Route::get('/', 'Web\TestController@index');
 
 
 
