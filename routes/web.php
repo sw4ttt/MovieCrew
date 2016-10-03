@@ -47,6 +47,7 @@ Route::get('/', 'Web\TestController@index');
 
 
 
+
 Route::get('/login', function () {
     return view('auth/login');
 })->name('login');;
