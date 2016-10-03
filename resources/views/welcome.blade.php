@@ -50,6 +50,34 @@
                         </table>
                     @endif
 
+                    @if (isset($movies))
+                        <h2>CREWS</h2>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>IMDBid</th>
+                                    <th>Title</th>
+                                    <th>ratingIMDB</th>
+                                    <th>ByUser</th>
+                                    <th>Crew_id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($movies as $movie)
+                                    <tr>
+                                        <td>{{ $movie->id }}</td>
+                                        <td>{{ $movie->IMDBid }}</td>
+                                        <td>{{ $movie->title }}</td>
+                                        <td>{{ $movie->ratingIMDB }}</td>
+                                        <td>{{ $movie->byUser }}</td>
+                                        <td>{{ $movie->crew_id }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+
                 </div>
             </div>
         </div>

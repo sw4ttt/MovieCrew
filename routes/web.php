@@ -13,6 +13,7 @@
 
 use App\User;
 use App\Crew;
+use App\Movie;
 
 
 Route::get('/', function () {
@@ -29,7 +30,14 @@ Route::get('/', function () {
         return view('welcome')->with('users', $users);
     }
 
-    return view('welcome')->with(['users' => $users,'crews' => $crews]);
+    $movies = Movie::all();
+
+    if ($movies->count() == 0)
+    {
+        return view('welcome')->with(['users' => $users,'crews' => $crews]);
+    }
+
+    return view('welcome')->with(['users' => $users,'crews' => $crews,'movies' => $movies]);
 });
 
 

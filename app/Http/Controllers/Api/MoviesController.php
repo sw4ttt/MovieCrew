@@ -47,7 +47,8 @@ class MoviesController extends Controller
             'rated',
             'votes',
             'metascore',
-            'byUser'
+            'byUser',
+            'crew_id'
             );
         
         $validator = Validator::make($input, [
@@ -64,6 +65,7 @@ class MoviesController extends Controller
             'votes' => 'required',
             'metascore' => 'required',
             'byUser' => 'required',
+            'crew_id' => 'required|exists:crews,id'
         ]);
 
         if($validator->fails()) {
@@ -86,6 +88,8 @@ class MoviesController extends Controller
         $movie->votes = $request->votes;
         $movie->metascore = $request->metascore;
         $movie->byUser = $request->byUser;
+
+        $movie->crew_id = $request->crew_id;
 
         $movie->save();
 
@@ -134,7 +138,8 @@ class MoviesController extends Controller
             ['rated' => $movie->rated],
             ['votes' => $movie->votes],
             ['metascore' => $movie->metascore],
-            ['byUser' => $movie->byUser]
+            ['byUser' => $movie->byUser],
+            ['crew_id' => $movie->crew_id]
             );
     }
 

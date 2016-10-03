@@ -21,4 +21,9 @@ class Crew extends Model
     {
         return $this->belongsTo('App\User','user_id','id');
     }
+
+    public function movies()
+    {
+        return $this->hasMany('App\Movies');
+    }
 }

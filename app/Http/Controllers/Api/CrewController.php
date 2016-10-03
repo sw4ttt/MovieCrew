@@ -174,8 +174,30 @@ class CrewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete (Request $request)
     {
-        //
+        $input = $request->only(
+            'id'
+        );
+
+        $validator = Validator::make($input, [
+            'id' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+
+        $crew = Crew::find($request->id);
+
+        if (!$crew)
+        {
+            return response()->json(['result'=>'crew with given id not found.']);    
+        }
+
+        $crew->delete();   
+
+        return response()->json(['result'=>'true']);    
     }
 }

@@ -34,20 +34,24 @@ Route::group(['middleware' => ['api','cors']], function ()
     // Grupo Normal
     Route::post('register', 'Api\Auth\AuthController@register');
     Route::post('login', 'Api\Auth\AuthController@login');
-    
+
+    // USERS Routes
     Route::post('deleteuser', 'Api\UserController@delete');
-    Route::get('getusers', 'Api\UserController@index');
-
-
-    Route::get('movies', 'Api\MoviesController@index');
-    Route::post('addmovie', 'Api\MoviesController@store');
-    Route::post('getmovie', 'Api\MoviesController@show');
+    Route::get('getusers', 'Api\UserController@index');    
     
-
+    // CREWS Routes
     Route::get('crews', 'Api\CrewController@index');
     Route::post('addcrew', 'Api\CrewController@store');
     Route::post('getcrewuser', 'Api\CrewController@showCrewUser');
     Route::post('getusercrews', 'Api\CrewController@showUserCrews');
+    Route::post('deletecrew', 'Api\CrewController@delete');
+
+    // MOVIES Routes
+    Route::get('movies', 'Api\MoviesController@index');
+    Route::post('addmovie', 'Api\MoviesController@store');
+    Route::post('getmovie', 'Api\MoviesController@show');
+    Route::post('getmoviecrew', 'Api\MoviesController@showMovieCrew');
+    Route::post('getCrewMovies', 'Api\MoviesController@showCrewMovies');
 
     //Este Grupo Necesita Token (usa el middleware jwt-auth)
     Route::group(['middleware' => 'jwt-auth'], function () {

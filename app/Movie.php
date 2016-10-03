@@ -29,7 +29,7 @@ class Movie extends Model
 
     public function crew()
     {
-        return $this->belongsTo('App\Crew','crewid');
+        return $this->belongsTo('App\Crew','crew_id','id');
     }
     
 }
