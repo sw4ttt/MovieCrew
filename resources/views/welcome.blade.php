@@ -40,6 +40,7 @@
                             <tbody>
                                 @foreach ($crews as $crew)
                                     <tr>
+                                        <td>{{ $crew->id }}</td>
                                         <td>{{ $crew->name }}</td>
                                         <td>{{ $crew->user_id }}</td>
                                     </tr>
