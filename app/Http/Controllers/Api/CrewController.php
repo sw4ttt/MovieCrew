@@ -59,6 +59,32 @@ class CrewController extends Controller
         $crew->users()->attach($request->user_id);
 
         return response()->json(['result'=>'true']);
+    }    
+
+    public function addCrewToUser(Request $request)
+    {
+        //
+        
+        $input = $request->only(
+            'crew_id',
+            'user_id'
+        );        
+        
+        $validator = Validator::make($input, [
+            'crew_id' => 'required|exists:crews,id',
+            'user_id' => 'required|exists:users,id'
+        ]);
+
+        if($validator->fails()) {
+            //throw new ValidationHttpException($validator->errors()->all());
+            return response()->json($validator->errors());
+        }
+
+        $crew = Crew::find($request->crew_id);
+
+        $crew->users()->attach($request->user_id);
+
+        return response()->json(['result'=>'true']);
     }
 
     /**

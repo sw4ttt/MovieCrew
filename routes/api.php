@@ -41,7 +41,8 @@ Route::group(['middleware' => ['api','cors']], function ()
     
     // CREWS Routes
     Route::get('crews', 'Api\CrewController@index');
-    Route::post('addcrew', 'Api\CrewController@store');
+    Route::post('addcrew', 'Api\CrewController@addCrewToUser');
+    Route::post('createcrew', 'Api\CrewController@store');
     Route::post('getcrewuser', 'Api\CrewController@showCrewUser');
     Route::post('getusercrews', 'Api\CrewController@showUserCrews');
     Route::post('deletecrew', 'Api\CrewController@delete');
