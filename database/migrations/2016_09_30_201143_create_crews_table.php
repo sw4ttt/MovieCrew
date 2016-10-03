@@ -14,7 +14,7 @@ class CreateCrewsTable extends Migration
     public function up()
     {
         Schema::create('crews', function (Blueprint $table) {
-            $table->increments('id')->unique();
+            $table->increments('crew_id')->unique();
             $table->string('name');
             
             $table->integer('user_id')->unsigned();

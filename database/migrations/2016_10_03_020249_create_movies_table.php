@@ -15,8 +15,8 @@ class CreateMoviesTable extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             //
-            $table->increments('id');
-            $table->string('IMDBid')->unique();            
+            $table->increments('movie_id');
+            $table->string('IMDBid');            
             $table->string('title');
             $table->string('year');
             $table->string('runtime');
@@ -31,7 +31,7 @@ class CreateMoviesTable extends Migration
             $table->string('byUser');
 
             $table->integer('crew_id')->unsigned();
-            $table->foreign('crew_id')->references('id')->on('crews')->onDelete('cascade');
+            $table->foreign('crew_id')->references('crew_id')->on('crews')->onDelete('cascade');
 
             $table->timestamps();
         });
