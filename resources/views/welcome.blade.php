@@ -13,7 +13,7 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th><strong>Id</strong></th>
                                     <th>Email</th>
                                 </tr>
                             </thead>
@@ -33,7 +33,7 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th><strong>Id</strong></th>
                                     <th>Name</th>
                                     <th>User ID</th>
                                 </tr>
@@ -51,11 +51,11 @@
                     @endif
 
                     @if (isset($movies))
-                        <h2>CREWS</h2>
+                        <h2>MOVIES</h2>
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th><strong>Id</strong></th>
                                     <th>IMDBid</th>
                                     <th>Title</th>
                                     <th>ratingIMDB</th>
