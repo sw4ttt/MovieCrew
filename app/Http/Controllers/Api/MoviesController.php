@@ -110,6 +110,15 @@ class MoviesController extends Controller
         }
 
         $crew = Crew::find($request->crew_id);
+        $movie = Movie::find($request->movie_id);
+
+        foreach ($crew->movies as $movieOfCrew) 
+        {
+            if($movieOfCrew->id == $movie->id)
+            {
+                return response()->json(['result'=>'false']);
+            }
+        }
 
         $crew->movies()->attach($request->movie_id);
 

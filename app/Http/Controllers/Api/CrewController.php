@@ -89,7 +89,16 @@ class CrewController extends Controller
             return response()->json($validator->errors());
         }
 
+        $user = User::find($request->user_id);
         $crew = Crew::find($request->crew_id);
+
+        foreach ($user->crews as $crewsOfUser) 
+        {
+            if($crewsOfUser->name == $crew->name)
+            {
+                return response()->json(['result'=>'false']);
+            }
+        }        
 
         $crew->users()->attach($request->user_id);
 
