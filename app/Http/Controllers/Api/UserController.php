@@ -45,7 +45,9 @@ class UserController extends Controller
         
         $user = User::find($request->id);
 
-        $user->delete();        
+        $user->delete();   
+
+        return response()->json(['result'=>'true']);    
     }
 
     /**

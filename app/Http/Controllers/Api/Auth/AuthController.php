@@ -56,45 +56,5 @@ class AuthController extends Controller
     	$input = $request->all();
     	$user = JWTAuth::toUser($input['token']);
         return response()->json(['result' => $user]);
-    }   
-
-    public function delete (Request $request)
-    {
-        $input = $request->only(
-            'id'
-        );
-
-        $validator = Validator::make($input, [
-            'id' => 'required'
-        ]);
-
-        if($validator->fails()) {
-            //throw new ValidationHttpException($validator->errors()->all());
-            return response()->json($validator->errors());
-        }
-        
-        $user = User::find($request->id);
-
-        $user->delete();        
     }
-
-    public function getusers (Request $request)
-    {
-        $input = $request->only(
-            'id'
-        );
-
-        $validator = Validator::make($input, [
-            'id' => 'required'
-        ]);
-
-        if($validator->fails()) {
-            //throw new ValidationHttpException($validator->errors()->all());
-            return response()->json($validator->errors());
-        }
-        
-        $user = User::find($request->id);
-
-        $user->delete();        
-    } 
 }
