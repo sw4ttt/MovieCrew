@@ -43,12 +43,12 @@ class UserController extends Controller
             return response()->json($validator->errors());
         }
 
+        $user = User::find($request->id);
+
         if (!$user)
         {
             return response()->json(['result'=>'user with given id not found.']);    
         }
-        
-        $user = User::find($request->id);
 
         $user->delete();   
 
