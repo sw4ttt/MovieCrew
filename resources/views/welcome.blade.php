@@ -10,10 +10,10 @@
                 <div class="panel-body">                    
                     @if (isset($users))
                         <h2>USERS</h2>
-                        <table class="table table-hover table-bordered">
+                        <table class="table table-hover table-bordered table-responsive">
                             <thead>
                                 <tr>
-                                    <th><strong>Id</strong></th>
+                                    <th>Id</th>
                                     <th>Email</th>
                                 </tr>
                             </thead>
@@ -30,10 +30,10 @@
 
                     @if (isset($crews))
                         <h2>CREWS</h2>
-                        <table class="table table-hover table-bordered">
+                        <table class="table table-hover table-bordered table-responsive">
                             <thead>
                                 <tr>
-                                    <th><strong>Id</strong></th>
+                                    <th>Id</th>
                                     <th>Name</th>
                                     <th>User ID</th>
                                 </tr>
@@ -52,10 +52,10 @@
 
                     @if (isset($movies))
                         <h2>MOVIES</h2>
-                        <table class="table table-hover table-bordered">
+                        <table class="table table-hover table-bordered table-responsive">
                             <thead>
                                 <tr>
-                                    <th><strong>Id</strong></th>
+                                    <th>Id</th>
                                     <th>IMDBid</th>
                                     <th>Title</th>
                                     <th>ratingIMDB</th>
