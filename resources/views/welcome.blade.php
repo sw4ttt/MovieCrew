@@ -33,6 +33,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Name</th>
                                         <th>User_id</th>
                                         <th>Crew_id</th>
                                     </tr>
@@ -41,9 +42,10 @@
                                     @foreach ($users as $user)
                                         @foreach ($user->crews as $crew_user)
                                             <tr>
+                                                <td>{{ $crew_user->id }}</td>
                                                 <td>{{ $crew_user->name }}</td>
-                                                <td>{{ $crew_user->user_id }}</td>
-                                                <td>{{ $crew_user->crew_id }}</td>
+                                                <td>{{ $crew_user->pivot->user_id }}</td>
+                                                <td>{{ $crew_user->pivot->crew_id }}</td>
                                             </tr>
                                         @endforeach
                                     @endforeach
