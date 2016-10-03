@@ -39,7 +39,7 @@ class CrewController extends Controller
             );
         
         $validator = Validator::make($input, [
-            'name' => 'required|unique:crews,name',
+            'name' => 'required',
             'user_id' => 'required|exists:users,id'
         ]);
 
