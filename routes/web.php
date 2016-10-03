@@ -37,7 +37,12 @@ Route::get('/', function () {
         return view('welcome')->with(['users' => $users,'crews' => $crews]);
     }
 
-    return view('welcome')->with(['users' => $users,'crews' => $crews,'movies' => $movies]);
+    $user = App\User::find(1);
+
+    return $user->crews->toJson();
+
+
+    //return view('welcome')->with(['users' => $users,'crews' => $crews,'movies' => $movies]);
 });
 
 
