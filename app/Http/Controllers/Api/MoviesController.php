@@ -167,6 +167,27 @@ class MoviesController extends Controller
             ['rated' => $movie->rated],
             ['votes' => $movie->votes],
             ['metascore' => $movie->metascore]
-            );
+        );
+    }
+
+    public function searchMovieDB($IMDBid)
+    {
+        $movie = Movie::where('IMDBid', $IMDBid)->first();
+
+        if (!$movie)
+        {
+            return response()->json(['result' => 'Movie does NOT exist.']);
+        }
+
+        return response()->json(['result' => 'Movie Exist.']);
+
+
+
+    }
+
+    public function searchMovieAPI($imdbid)
+    {
+        //
+        $movie = Movie::find($request->movie_id);
     }
 }

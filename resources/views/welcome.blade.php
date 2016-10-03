@@ -98,6 +98,7 @@
                         <table class="table table-hover table-bordered table-responsive">
                             <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Id</th>
                                     <th>IMDBid</th>
                                     <th>Title</th>
@@ -107,6 +108,7 @@
                             <tbody>
                                 @foreach ($movies as $movie)
                                     <tr>
+                                        <td>{{ $movie->urlPoster }}</td>
                                         <td>{{ $movie->id }}</td>
                                         <td>{{ $movie->IMDBid }}</td>
                                         <td>{{ $movie->title }}</td>

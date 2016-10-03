@@ -24,7 +24,7 @@ class TestController extends Controller
             // echo $apiRequest->getStatusCode());
             // echo $apiRequest->getHeader('content-type'));
 
-            echo $apiRequest->getStatusCode();
+            //echo $apiRequest->getStatusCode();
 
             if ($apiRequest->getStatusCode() != 200)
             {
