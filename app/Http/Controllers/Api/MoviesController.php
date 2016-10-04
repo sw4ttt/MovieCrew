@@ -157,8 +157,6 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
-        /*
-
         $movie = (new MoviesController)->getMovie($request->IMDBid);
 
         if ($movie)
@@ -169,38 +167,6 @@ class MoviesController extends Controller
         $movie = (new MoviesController)->getMovieFromAPI($request->IMDBid);
 
         return response()->json($movie);
-
-        */
-
-        $client = new GuzzleHttpClient();
-        $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$request->IMDBid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
-        $promise->then(
-            function (ResponseInterface $res) 
-            {
-                //echo $res->getStatusCode() . "\n";
-                if ($res->getStatusCode() != 200)
-                {
-                    return response()->json(['error' => 'Error on Api, status code not 200. (myapifilms)']);
-                }
-
-                $content = json_decode($res->getBody()->getContents());
-
-                dd($res);
-
-                return response()->json($content);
-
-            },
-            function (RequestException $e) {
-                //echo $e->getMessage() . "\n";
-                //echo $e->getRequest()->getMethod();
-
-                return response()->json($e->getMessage());
-            }
-        )->wait();
-
-        //$promise->wait();
-
-        return response()->json(['result' => 'FIN']);
     }
 
     public function getMovie($IMDBid)
@@ -215,113 +181,123 @@ class MoviesController extends Controller
 
     public function getMovieFromAPI($imdbid)
     {
-               
-        try
-        { 
-            $client = new GuzzleHttpClient();
 
-            $apiRequest = $client->request('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$imdbid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
-            
-            if ($apiRequest->getStatusCode() != 200)
+        $movie = null;
+        $result = null;
+        $client = new GuzzleHttpClient();
+        $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$request->IMDBid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
+
+        $promise->then(
+            function (ResponseInterface $res) 
             {
-                return response()->json(['error' => 'Error on Api, status code not 200. (myapifilms)']);
-            }
+                //echo $res->getStatusCode() . "\n";
+                if ($res->getStatusCode() != 200)
+                {
+                    return response()->json(['error' => 'Error on Api, status code not 200. (myapifilms)']);
+                }
 
-            $content = json_decode($apiRequest->getBody()->getContents());
+                $content = json_decode($res->getBody()->getContents());
 
-            if (array_has($content, 'error'))
+                if (array_has($content, 'error'))
+                {
+                    return response()->json(['error' => $content->error->message]);
+                }
+
+                $movieAPI = $content->data->movies[0];
+
+                // Check if it is the correct movie.
+                if ($movieAPI->idIMDB == $imdbid)
+                {
+                    // It is.
+                    $movie = new Movie;
+
+                    $movie->IMDBid = $movieAPI->idIMDB;
+                    $movie->title = $movieAPI->title;
+                    $movie->year = $movieAPI->year;
+                    $movie->urlIMDB = $movieAPI->urlIMDB;
+                    $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
+                    
+                    if(array_has($movieAPI, 'runtime'))
+                    {
+                        $movie->runtime = $movieAPI->runtime;
+                    }
+                    else
+                    {
+                        $movie->runtime = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'urlPoster'))
+                    {
+                        $movie->urlPoster = $movieAPI->urlPoster;
+                    }
+                    else
+                    {
+                        $movie->urlPoster = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'simplePlot'))
+                    {
+                        $movie->plot = $movieAPI->simplePlot;
+                    }
+                    else
+                    {
+                        $movie->plot = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'rating'))
+                    {
+                        $movie->ratingIMDB = $movieAPI->rating;
+                    }
+                    else
+                    {
+                        $movie->ratingIMDB = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'rated'))
+                    {
+                        $movie->rated = $movieAPI->rated;
+                    }
+                    else
+                    {
+                        $movie->rated = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'votes'))
+                    {
+                        $movie->votes = $movieAPI->votes;
+                    }
+                    else
+                    {
+                        $movie->votes = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'metascore'))
+                    {
+                        $movie->metascore = $movieAPI->metascore;
+                    }
+                    else
+                    {
+                        $movie->metascore = 'N/A';
+                    }
+                    $movie->save();                    
+                }
+                $result = true;
+            },
+            function (RequestException $e) 
             {
-                return response()->json(['error' => $content->error->message]);
+                //echo $e->getMessage() . "\n";
+                //echo $e->getRequest()->getMethod();
+
+                //return response()->json($e->getMessage());
+
+                $result = false;
             }
+        )->wait();
 
-            $movieAPI = $content->data->movies[0];
-
-            // Check if it is the correct movie.
-            if ($movieAPI->idIMDB == $imdbid)
-            {
-                // It is.
-                $movie = new Movie;
-
-                $movie->IMDBid = $movieAPI->idIMDB;
-                $movie->title = $movieAPI->title;
-                $movie->year = $movieAPI->year;
-                $movie->urlIMDB = $movieAPI->urlIMDB;
-                $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
-                
-                if(array_has($movieAPI, 'runtime'))
-                {
-                    $movie->runtime = $movieAPI->runtime;
-                }
-                else
-                {
-                    $movie->runtime = 'N/A';
-                }
-
-                if(array_has($movieAPI, 'urlPoster'))
-                {
-                    $movie->urlPoster = $movieAPI->urlPoster;
-                }
-                else
-                {
-                    $movie->urlPoster = 'N/A';
-                }
-
-                if(array_has($movieAPI, 'simplePlot'))
-                {
-                    $movie->plot = $movieAPI->simplePlot;
-                }
-                else
-                {
-                    $movie->plot = 'N/A';
-                }
-
-                if(array_has($movieAPI, 'rating'))
-                {
-                    $movie->ratingIMDB = $movieAPI->rating;
-                }
-                else
-                {
-                    $movie->ratingIMDB = 'N/A';
-                }
-
-                if(array_has($movieAPI, 'rated'))
-                {
-                    $movie->rated = $movieAPI->rated;
-                }
-                else
-                {
-                    $movie->rated = 'N/A';
-                }
-
-                if(array_has($movieAPI, 'votes'))
-                {
-                    $movie->votes = $movieAPI->votes;
-                }
-                else
-                {
-                    $movie->votes = 'N/A';
-                }
-
-                if(array_has($movieAPI, 'metascore'))
-                {
-                    $movie->metascore = $movieAPI->metascore;
-                }
-                else
-                {
-                    $movie->metascore = 'N/A';
-                }
-                $movie->save();
-
-                return response()->json($movie);
-            }
-
-            return response()->json(['error' => 'Wrong movie returned on API call.']); 
-        }
-        catch (RequestException $re) 
+        if ($result)
         {
-
-            return response()->json(['error' => 'RequestException on API call.']);
-
+            return response()->json($movie);
         }
+        return response()->json(['result'=>'error Promise.']);        
     }
 }
