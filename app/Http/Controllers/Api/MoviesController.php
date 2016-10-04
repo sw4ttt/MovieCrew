@@ -211,7 +211,7 @@ class MoviesController extends Controller
 
             $content = json_decode($apiRequest->getBody()->getContents());
 
-            if ($content->error)
+            if (array_has($content, 'error'))
             {
                 return response()->json(['error' => 'Error on API request. (myapifilms).']);
             }
