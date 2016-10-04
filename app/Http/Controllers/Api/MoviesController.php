@@ -149,7 +149,9 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
-        return $this.searchMovieAPI($input->IMDBid);
+        return (new MoviesController)->searchMovieAPI($input->IMDBid);
+        
+        //.searchMovieAPI($input->IMDBid);
         
 
         //$movie = Movie::find($request->IMDBid);
