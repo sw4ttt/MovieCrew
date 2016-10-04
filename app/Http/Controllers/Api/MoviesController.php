@@ -181,12 +181,13 @@ class MoviesController extends Controller
 
     public function getMovieFromAPI($imdbid)
     {
-        $movie = null;
-        $result = null;
+
         $client = new GuzzleHttpClient();
         $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$imdbid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
         
         session(['imdbid' => $imdbid]);
+        session(['result' => false]);
+        session(['movie' => null]);
 
         
         $promise->then(
@@ -202,7 +203,8 @@ class MoviesController extends Controller
 
                 if (array_has($content, 'error'))
                 {
-                    return response()->json(['error' => $content->error->message]);
+                    //return response()->json(['error' => $content->error->message]);
+                    session(['result' => false]);
                 }
 
                 $movieAPI = $content->data->movies[0];
@@ -283,9 +285,10 @@ class MoviesController extends Controller
                     {
                         $movie->metascore = 'N/A';
                     }
-                    $movie->save();                    
+                    $movie->save(); 
+                    session(['movie' => $movie]);                   
                 }
-                $result = true;
+                session(['result' => true]);
             },
             function (RequestException $e) 
             {
@@ -294,13 +297,13 @@ class MoviesController extends Controller
 
                 //return response()->json($e->getMessage());
 
-                $result = false;
+                session(['result' => false]);
             }
         )->wait();
 
-        if ($result)
+        if (session('result'))
         {
-            return response()->json($movie);
+            return response()->json(session('movie'));
         }
         return response()->json(['result'=>'error Promise.']);        
     }
