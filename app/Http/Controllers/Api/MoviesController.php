@@ -189,6 +189,8 @@ class MoviesController extends Controller
         session(['result' => false]);
         session(['movie' => null]);
 
+        session(['stuff' => 'stuff']);
+
         
         $promise->then(
             function (ResponseInterface $res) 
@@ -201,10 +203,17 @@ class MoviesController extends Controller
             }
         )->wait();
 
+        /*
+
         if (session('result'))
         {
             return response()->json(session('movie'));
         }
-        return response()->json(['result'=>'error Promise.']);        
+        return response()->json(['result'=>'error Promise.']);
+
+        */
+
+        return response()->json(['result'=>'todo cool'],['stuff' => session('stuff')]);
+
     }
 }
