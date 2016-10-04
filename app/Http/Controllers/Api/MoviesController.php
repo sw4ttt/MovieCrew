@@ -213,7 +213,7 @@ class MoviesController extends Controller
 
         */
 
-        return response()->json(['result'=>'todo cool'],['stuff' => session('stuff')]);
+        return response()->json(['result'=>'todo cool']);
 
     }
 }
