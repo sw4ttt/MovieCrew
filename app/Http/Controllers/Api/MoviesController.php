@@ -194,7 +194,7 @@ class MoviesController extends Controller
 
                 return response()->json($e->getMessage());
             }
-        );
+        )->wait();
 
         return response()->json(['result' => 'FIN']);
     }
