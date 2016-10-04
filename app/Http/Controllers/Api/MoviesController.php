@@ -149,7 +149,7 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
-        return (new MoviesController)->searchMovieAPI($input->IMDBid);
+        return (new MoviesController)->searchMovieAPI($request->IMDBid);
         
         //.searchMovieAPI($input->IMDBid);
         
