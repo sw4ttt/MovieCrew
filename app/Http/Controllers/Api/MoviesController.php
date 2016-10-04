@@ -211,7 +211,7 @@ class MoviesController extends Controller
 
             $content = json_decode($apiRequest->getBody()->getContents());
 
-            $movieAPI = movies[0];
+            $movieAPI = $content->data->movies[0];
 
             // Check if it is the correct movie.
             if ($movieAPI->idIMDB == $imdbid)
