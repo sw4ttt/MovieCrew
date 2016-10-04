@@ -155,53 +155,29 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
-        return (new MoviesController)->searchMovieAPI($request->IMDBid);
-        
-        //.searchMovieAPI($input->IMDBid);
-        
+        $movie = (new MoviesController)->getMovie($request->IMDBid);
 
-        //$movie = Movie::find($request->IMDBid);
-        /*
-        return response()->json(
-            ['result' => true],
-            ['IMDBid' => $movie->IMDBid],
-            ['title' => $movie->title],
-            ['year' => $movie->year],
-            ['runtime' => $movie->runtime],
-            ['urlPoster' => $movie->urlPoster],
-            ['urlIMDB' => $movie->urlIMDB],
-            ['plot' => $movie->plot],
-            ['ratingIMDB' => $movie->ratingIMDB],
-            ['ratingMC' => $movie->ratingMC],
-            ['rated' => $movie->rated],
-            ['votes' => $movie->votes],
-            ['metascore' => $movie->metascore]
-        );
-        */
-    }
-
-    public function searchMovieDB(Request $request)
-    {
-
-        $input = $request->only(
-            'IMDBid'
-        );
-
-        $validator = Validator::make($input, [
-            'IMDBid' => 'required|exists:movies,IMDBid'
-        ]);
-
-        if($validator->fails()) {
-            //throw new ValidationHttpException($validator->errors()->all());
-            return response()->json($validator->errors());
+        if ($movie)
+        {
+            return response()->json($movie);
         }
 
+        $movie = (new MoviesController)->searchMovieAPI($request->IMDBid);
+
+        return response()->json($movie);
+    }
+
+    public function getMovie($IMDBid)
+    {
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
+
+        if (!$movie)
+            return null;
 
         return $movie;
     }
 
-    public function searchMovieAPI($imdbid)
+    public function getMovieFromAPI($imdbid)
     {
         
         try
@@ -227,28 +203,81 @@ class MoviesController extends Controller
             // Check if it is the correct movie.
             if ($movieAPI->idIMDB == $imdbid)
             {
-                // It is. 
-
+                // It is.
                 $movie = new Movie;
 
                 $movie->IMDBid = $movieAPI->idIMDB;
                 $movie->title = $movieAPI->title;
                 $movie->year = $movieAPI->year;
-                $movie->runtime = $movieAPI->runtime;
-                $movie->urlPoster = $movieAPI->urlPoster;
                 $movie->urlIMDB = $movieAPI->urlIMDB;
-                $movie->plot = $movieAPI->simplePlot;
-                $movie->ratingIMDB = $movieAPI->rating;
-                $movie->ratingMC = 0;
-                $movie->rated = $movieAPI->rated;
-                $movie->votes = $movieAPI->votes;
-                $movie->metascore = $movieAPI->metascore;
+                $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
+                
+                if(array_has($movieAPI, 'runtime'))
+                {
+                    $movie->runtime = $movieAPI->runtime;
+                }
+                else
+                {
+                    $movie->runtime = 'N/A';
+                }
 
-                //$movie->save();
+                if(array_has($movieAPI, 'urlPoster'))
+                {
+                    $movie->urlPoster = $movieAPI->urlPoster;
+                }
+                else
+                {
+                    $movie->urlPoster = 'N/A';
+                }
+
+                if(array_has($movieAPI, 'simplePlot'))
+                {
+                    $movie->plot = $movieAPI->simplePlot;
+                }
+                else
+                {
+                    $movie->plot = 'N/A';
+                }
+
+                if(array_has($movieAPI, 'rating'))
+                {
+                    $movie->ratingIMDB = $movieAPI->rating;
+                }
+                else
+                {
+                    $movie->ratingIMDB = 'N/A';
+                }
+
+                if(array_has($movieAPI, 'rated'))
+                {
+                    $movie->rated = $movieAPI->rated;
+                }
+                else
+                {
+                    $movie->rated = 'N/A';
+                }
+
+                if(array_has($movieAPI, 'votes'))
+                {
+                    $movie->votes = $movieAPI->votes;
+                }
+                else
+                {
+                    $movie->votes = 'N/A';
+                }
+
+                if(array_has($movieAPI, 'metascore'))
+                {
+                    $movie->metascore = $movieAPI->metascore;
+                }
+                else
+                {
+                    $movie->metascore = 'N/A';
+                }
+                $movie->save();
 
                 return response()->json($movie);
             }
-
 
             return response()->json(['error' => 'Wrong movie returned on API call.']);
 
