@@ -203,6 +203,8 @@ class MoviesController extends Controller
 //----------->>>>>>>
                     $content = json_decode($res->getBody()->getContents());
 
+                    dd($content);
+
                     if (array_has($content, 'error'))
                     {
                         //return response()->json(['error' => $content->error->message]);
