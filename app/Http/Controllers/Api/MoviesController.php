@@ -192,7 +192,7 @@ class MoviesController extends Controller
 
                 $contents = $res->getBody()->getContents();
 
-                dd($contents->data->movie[0]);
+                dd($contents->data->movie);
             },
             function (RequestException $e) 
             {
