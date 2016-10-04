@@ -202,7 +202,7 @@ class MoviesController extends Controller
         { 
             $client = new GuzzleHttpClient();
 
-            $apiRequest = $client->request('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB=tt0133093&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
+            $apiRequest = $client->request('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB=tt0133093X&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
             
             if ($apiRequest->getStatusCode() != 200)
             {
