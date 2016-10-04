@@ -193,11 +193,11 @@ class MoviesController extends Controller
         $promise->then(
             function (ResponseInterface $res) 
             {
-                dd($res);
+                //dd($res);
             },
             function (RequestException $e) 
             {
-                dd($e);
+                //dd($e);
             }
         )->wait();
 
