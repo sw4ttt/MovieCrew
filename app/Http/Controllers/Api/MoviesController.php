@@ -189,6 +189,10 @@ class MoviesController extends Controller
             function (ResponseInterface $res) 
             {
                 //dd($res);
+
+                $contents = $res->getBody()->getContents();
+
+                dd($contents->data->movie[0]);
             },
             function (RequestException $e) 
             {
