@@ -185,6 +185,8 @@ class MoviesController extends Controller
 
                 $content = json_decode($res->getBody()->getContents());
 
+                dd($res);
+
                 return response()->json($content);
 
             },
