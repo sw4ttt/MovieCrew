@@ -49,9 +49,9 @@ Route::group(['middleware' => ['api','cors']], function ()
 
     // MOVIES Routes
     Route::get('movies', 'Api\MoviesController@index');
-    Route::post('getMovie', 'Api\MoviesController@show');
-    Route::post('addMovieCrew', 'Api\MoviesController@addMovieToCrew');
-    Route::post('getCrewMovies', 'Api\MoviesController@showCrewMovies');
+    Route::post('getmovie', 'Api\MoviesController@show');
+    Route::post('addmoviecrew', 'Api\MoviesController@addMovieToCrew');
+    Route::post('getcrewmovies', 'Api\MoviesController@showCrewMovies');
 
     //Este Grupo Necesita Token (usa el middleware jwt-auth)
     Route::group(['middleware' => 'jwt-auth'], function () {

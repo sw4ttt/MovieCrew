@@ -169,7 +169,7 @@ class MoviesController extends Controller
 
     public function getMovie($IMDBid)
     {
-        $movie = Movie::where('IMDBid', $request->IMDBid)->first();
+        $movie = Movie::where('IMDBid', $IMDBid)->first();
 
         if (!$movie)
             return null;
