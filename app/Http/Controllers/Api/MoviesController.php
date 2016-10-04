@@ -140,8 +140,14 @@ class MoviesController extends Controller
             'IMDBid'
         );
 
+        /*
         $validator = Validator::make($input, [
             'IMDBid' => 'required|exists:movies,IMDBid'
+        ]);
+        */
+
+        $validator = Validator::make($input, [
+            'IMDBid' => 'required'
         ]);
 
         if($validator->fails()) {
