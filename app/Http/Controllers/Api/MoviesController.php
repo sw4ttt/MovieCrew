@@ -235,7 +235,7 @@ class MoviesController extends Controller
 
                 //$movie->save();
 
-                return response()->json($movie->toJson());
+                return response()->json($movie);
             }
 
 
