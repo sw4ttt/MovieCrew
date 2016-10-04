@@ -21,25 +21,17 @@ class TestController extends Controller
             $client = new GuzzleHttpClient();
 
             $apiRequest = $client->request('GET', 'http://api.myapifilms.com/imdb/idIMDB?title=matrix&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba');
-
-            // echo $apiRequest->getStatusCode());
-            // echo $apiRequest->getHeader('content-type'));
-
-            //echo $apiRequest->getStatusCode();
-
+            
             if ($apiRequest->getStatusCode() != 200)
             {
-                return response()->json(['error' => 'Error Api myapifilms not 200']);
+                return response()->json(['error' => 'Error Api myapifilms.']);
             }
 
             $content = json_decode($apiRequest->getBody()->getContents());
 
-            //var_dump($content->data->movies[0]->title);
-            return $content->data->movies[0]->title;
+            //return $content->data->movies[0]->title;
 
-            //return response()->json(['error' => 'Error Api myapifilms not 200']);
-
-            //return dd($content);
+            return $content->data->movies[0];
 
             /*
             {[{
@@ -65,7 +57,7 @@ class TestController extends Controller
         }
         catch (RequestException $re) 
         {
-            //For handling exception
+
         }
 
     }

@@ -190,18 +190,17 @@ class MoviesController extends Controller
 
         if (!$movie)
         {
-            return response()->json(['result' => 'Movie does NOT exist.']);
+            return null;
         }
 
-        return response()->json(['result' => 'Movie Exist.']);
-
-
-
+        return $movie;
     }
 
     public function searchMovieAPI($imdbid)
     {
         //
-        $movie = Movie::find($request->movie_id);
+        $movie = Movie::find($imdbid);
+
+
     }
 }
