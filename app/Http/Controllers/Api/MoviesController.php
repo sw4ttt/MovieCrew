@@ -183,7 +183,7 @@ class MoviesController extends Controller
                     return response()->json(['error' => 'Error on Api, status code not 200. (myapifilms)']);
                 }
 
-                $content = json_decode($apiRequest->getBody()->getContents());
+                $content = json_decode($res->getBody()->getContents());
 
                 return response()->json($content);
 
