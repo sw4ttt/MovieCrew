@@ -195,6 +195,8 @@ class MoviesController extends Controller
                 return response()->json($e->getMessage());
             }
         );
+
+        return response()->json(['result' => 'FIN']);
     }
 
     public function getMovie($IMDBid)
