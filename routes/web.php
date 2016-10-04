@@ -15,7 +15,7 @@ use App\User;
 use App\Crew;
 use App\Movie;
 
-/*
+
 Route::get('/', function () {
 
     
@@ -41,9 +41,9 @@ Route::get('/', function () {
     return view('welcome')->with(['users' => $users,'crews' => $crews,'movies' => $movies]);
     
 });
-*/
 
-Route::get('/', 'Web\TestController@index');
+
+//Route::get('/', 'Web\TestController@index');
 
 
 
