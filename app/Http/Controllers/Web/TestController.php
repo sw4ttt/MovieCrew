@@ -31,7 +31,7 @@ class TestController extends Controller
 
             //return $content->data->movies[0]->title;
 
-            return $content->data->movies[0];
+            return dd($content->data->movies[0]);
 
             /*
             {[{
