@@ -196,99 +196,105 @@ class MoviesController extends Controller
                 //echo $res->getStatusCode() . "\n";
                 if ($res->getStatusCode() != 200)
                 {
-                    return response()->json(['error' => 'Error on Api, status code not 200. (myapifilms)']);
-                }
-
-                $content = json_decode($res->getBody()->getContents());
-
-                if (array_has($content, 'error'))
-                {
-                    //return response()->json(['error' => $content->error->message]);
                     session(['result' => false]);
                 }
-
-                $movieAPI = $content->data->movies[0];
-
-                $imdbid = session('imdbid');
-
-                // Check if it is the correct movie.
-                if ($movieAPI->idIMDB == $imdbid)
+                else
                 {
-                    // It is.
-                    $movie = new Movie;
+//----------->>>>>>>
+                    $content = json_decode($res->getBody()->getContents());
 
-                    $movie->IMDBid = $movieAPI->idIMDB;
-                    $movie->title = $movieAPI->title;
-                    $movie->year = $movieAPI->year;
-                    $movie->urlIMDB = $movieAPI->urlIMDB;
-                    $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
-                    
-                    if(array_has($movieAPI, 'runtime'))
+                    if (array_has($content, 'error'))
                     {
-                        $movie->runtime = $movieAPI->runtime;
+                        //return response()->json(['error' => $content->error->message]);
+                        session(['result' => false]);
                     }
                     else
                     {
-                        $movie->runtime = 'N/A';
-                    }
+                        $movieAPI = $content->data->movies[0];
 
-                    if(array_has($movieAPI, 'urlPoster'))
-                    {
-                        $movie->urlPoster = $movieAPI->urlPoster;
-                    }
-                    else
-                    {
-                        $movie->urlPoster = 'N/A';
-                    }
+                        $imdbid = session('imdbid');
 
-                    if(array_has($movieAPI, 'simplePlot'))
-                    {
-                        $movie->plot = $movieAPI->simplePlot;
-                    }
-                    else
-                    {
-                        $movie->plot = 'N/A';
-                    }
+                        // Check if it is the correct movie.
+                        if ($movieAPI->idIMDB == $imdbid)
+                        {
+                            // It is.
+                            $movie = new Movie;
 
-                    if(array_has($movieAPI, 'rating'))
-                    {
-                        $movie->ratingIMDB = $movieAPI->rating;
-                    }
-                    else
-                    {
-                        $movie->ratingIMDB = 'N/A';
-                    }
+                            $movie->IMDBid = $movieAPI->idIMDB;
+                            $movie->title = $movieAPI->title;
+                            $movie->year = $movieAPI->year;
+                            $movie->urlIMDB = $movieAPI->urlIMDB;
+                            $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
+                            
+                            if(array_has($movieAPI, 'runtime'))
+                            {
+                                $movie->runtime = $movieAPI->runtime;
+                            }
+                            else
+                            {
+                                $movie->runtime = 'N/A';
+                            }
 
-                    if(array_has($movieAPI, 'rated'))
-                    {
-                        $movie->rated = $movieAPI->rated;
-                    }
-                    else
-                    {
-                        $movie->rated = 'N/A';
-                    }
+                            if(array_has($movieAPI, 'urlPoster'))
+                            {
+                                $movie->urlPoster = $movieAPI->urlPoster;
+                            }
+                            else
+                            {
+                                $movie->urlPoster = 'N/A';
+                            }
 
-                    if(array_has($movieAPI, 'votes'))
-                    {
-                        $movie->votes = $movieAPI->votes;
-                    }
-                    else
-                    {
-                        $movie->votes = 'N/A';
-                    }
+                            if(array_has($movieAPI, 'simplePlot'))
+                            {
+                                $movie->plot = $movieAPI->simplePlot;
+                            }
+                            else
+                            {
+                                $movie->plot = 'N/A';
+                            }
 
-                    if(array_has($movieAPI, 'metascore'))
-                    {
-                        $movie->metascore = $movieAPI->metascore;
-                    }
-                    else
-                    {
-                        $movie->metascore = 'N/A';
-                    }
-                    $movie->save(); 
-                    session(['movie' => $movie]);                   
-                }
-                session(['result' => true]);
+                            if(array_has($movieAPI, 'rating'))
+                            {
+                                $movie->ratingIMDB = $movieAPI->rating;
+                            }
+                            else
+                            {
+                                $movie->ratingIMDB = 'N/A';
+                            }
+
+                            if(array_has($movieAPI, 'rated'))
+                            {
+                                $movie->rated = $movieAPI->rated;
+                            }
+                            else
+                            {
+                                $movie->rated = 'N/A';
+                            }
+
+                            if(array_has($movieAPI, 'votes'))
+                            {
+                                $movie->votes = $movieAPI->votes;
+                            }
+                            else
+                            {
+                                $movie->votes = 'N/A';
+                            }
+
+                            if(array_has($movieAPI, 'metascore'))
+                            {
+                                $movie->metascore = $movieAPI->metascore;
+                            }
+                            else
+                            {
+                                $movie->metascore = 'N/A';
+                            }
+                            $movie->save(); 
+                            session(['movie' => $movie]);                   
+                        }
+                        session(['result' => true]);
+                    }  
+//<<----------------                    
+                }                                  
             },
             function (RequestException $e) 
             {
