@@ -162,7 +162,7 @@ class MoviesController extends Controller
             return response()->json($movie);
         }
 
-        $movie = (new MoviesController)->searchMovieAPI($request->IMDBid);
+        $movie = (new MoviesController)->getMovieFromAPI($request->IMDBid);
 
         return response()->json($movie);
     }
