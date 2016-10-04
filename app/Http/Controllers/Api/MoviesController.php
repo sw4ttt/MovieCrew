@@ -186,6 +186,8 @@ class MoviesController extends Controller
         $client = new GuzzleHttpClient();
         $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$imdbid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
 
+        $thisid = $imdbid;
+
         
         $promise->then(
             function (ResponseInterface $res) 
@@ -206,7 +208,7 @@ class MoviesController extends Controller
                 $movieAPI = $content->data->movies[0];
 
                 // Check if it is the correct movie.
-                if ($movieAPI->idIMDB == $this.$imdbid)
+                if ($movieAPI->idIMDB == $thisid)
                 {
                     // It is.
                     $movie = new Movie;
