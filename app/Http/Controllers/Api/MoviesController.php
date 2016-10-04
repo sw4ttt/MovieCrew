@@ -12,6 +12,8 @@ use Validator;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\RequestException;
 
+use Psr\Http\Message\ResponseInterface;
+
 class MoviesController extends Controller
 {
     /**
@@ -155,6 +157,8 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
+        /*
+
         $movie = (new MoviesController)->getMovie($request->IMDBid);
 
         if ($movie)
@@ -165,6 +169,32 @@ class MoviesController extends Controller
         $movie = (new MoviesController)->getMovieFromAPI($request->IMDBid);
 
         return response()->json($movie);
+
+        */
+
+
+        $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$imdbid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
+        $promise->then(
+            function (ResponseInterface $res) 
+            {
+                //echo $res->getStatusCode() . "\n";
+                if ($res->getStatusCode() != 200)
+                {
+                    return response()->json(['error' => 'Error on Api, status code not 200. (myapifilms)']);
+                }
+
+                $content = json_decode($apiRequest->getBody()->getContents());
+
+                return response()->json($content);
+
+            },
+            function (RequestException $e) {
+                //echo $e->getMessage() . "\n";
+                //echo $e->getRequest()->getMethod();
+
+                return response()->json($e->getMessage());
+            }
+        );
     }
 
     public function getMovie($IMDBid)
@@ -179,7 +209,7 @@ class MoviesController extends Controller
 
     public function getMovieFromAPI($imdbid)
     {
-        
+               
         try
         { 
             $client = new GuzzleHttpClient();
@@ -279,29 +309,7 @@ class MoviesController extends Controller
                 return response()->json($movie);
             }
 
-            return response()->json(['error' => 'Wrong movie returned on API call.']);
-
-            /*
-            {[{
-                "title":"The Matrix"
-                "year":"1999"
-                "releaseDate":"19990331"
-                "directors":[{"name":"Lana Wachowski","id":"nm0905154"},{"name":"Lilly Wachowski","id":"nm0905152"}]
-                "writers":[{"name":"Lilly Wachowski","id":"nm0905152"},{"name":"Lana Wachowski","id":"nm0905154"}]
-                "runtime":"136 min"
-                "urlPoster":"https://images-na.ssl-images-amazon.com/images/M/MV5BMDMyMmQ5YzgtYWMxOC00OTU0LWIwZjEtZWUwYTY5MjVkZjhhXkEyXkFqcGdeQXVyNDYyMDk5MTU@._V1_UY268_CR6,0,182,268_AL_.jpg"
-                "genres":["Action","Sci-Fi"]
-                "plot":"Thomas A. Anderson is a man living two lives. By day he is an average computer programmer and by night a hacker known as Neo. Neo has always questioned his reality, but the truth is far beyond his imagination. Neo finds himself targeted by the police when he is contacted by Morpheus, a legendary computer hacker branded a terrorist by the government. Morpheus awakens Neo to the real world, a ravaged wasteland where most of humanity have been captured by a race of machines that live off of the humans' body heat and electrochemical energy and who imprison their minds within an artificial reality known as the Matrix. As a rebel against the machines, Neo must return to the Matrix and confront the agents: super-powerful computer programs devoted to snuffing out Neo and the entire human rebellion.","simplePlot":"A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers."
-                "idIMDB":"tt0133093"
-                "urlIMDB":"http://www.imdb.com/title/tt0133093"
-                "rating":"8.7"
-                "metascore":"73"
-                "rated":"R"
-                "votes":"1,230,474"
-                "type":"Movie"
-            }]}
-            */
- 
+            return response()->json(['error' => 'Wrong movie returned on API call.']); 
         }
         catch (RequestException $re) 
         {
