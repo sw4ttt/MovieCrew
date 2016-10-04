@@ -184,14 +184,7 @@ class MoviesController extends Controller
 
         $client = new GuzzleHttpClient();
         $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$imdbid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
-        
-        session(['imdbid' => $imdbid]);
-        session(['result' => false]);
-        session(['movie' => null]);
-
-        session(['stuff' => 'stuff']);
-
-        
+                
         $promise->then(
             function (ResponseInterface $res) 
             {
