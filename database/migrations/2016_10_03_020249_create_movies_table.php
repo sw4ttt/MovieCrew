@@ -22,7 +22,7 @@ class CreateMoviesTable extends Migration
             $table->string('runtime');
             $table->string('urlPoster');
             $table->string('urlIMDB');
-            $table->string('plot');
+            $table->string('plot', 300);
             $table->string('ratingIMDB');
             $table->string('ratingMC');
             $table->string('rated');
