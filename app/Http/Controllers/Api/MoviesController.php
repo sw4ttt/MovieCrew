@@ -190,9 +190,9 @@ class MoviesController extends Controller
             {
                 //dd($res);
 
-                $contents = $res->getBody()->getContents();
+                $content = json_decode($res->getBody()->getContents());
 
-                dd($contents->data->movies[0]);
+                dd($content->data->movies[0]);
             },
             function (RequestException $e) 
             {
