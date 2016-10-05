@@ -198,6 +198,16 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
+        $movie = $this->getMovie($request->IMDBid);
+
+        if (!$movie)
+        {
+            return response()->json($movie);
+        }
+
+        //return response()->json(['result'=>'PRE OUT']);
+
+
         $client = new GuzzleHttpClient();
         $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$request->IMDBid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
 
@@ -221,17 +231,73 @@ class MoviesController extends Controller
                     $movie->IMDBid = $movieAPI->idIMDB;
                     $movie->title = $movieAPI->title;
                     $movie->year = $movieAPI->year;
-                    $movie->runtime = $movieAPI->runtime;
-                    $movie->urlPoster = $movieAPI->urlPoster;
                     $movie->urlIMDB = $movieAPI->urlIMDB;
-                    $movie->plot = $movieAPI->simplePlot;
-                    $movie->ratingIMDB = $movieAPI->rating;
-                    $movie->ratingMC = 0; // It starts at zero. It's based on votes on the app.
-                    $movie->rated = $movieAPI->rated;
-                    $movie->votes = $movieAPI->votes;
-                    $movie->metascore = $movieAPI->metascore;
+                    $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
+                    
+                    if(array_has($movieAPI, 'runtime'))
+                    {
+                        $movie->runtime = $movieAPI->runtime;
+                    }
+                    else
+                    {
+                        $movie->runtime = 'N/A';
+                    }
 
-                    //$movie->save();
+                    if(array_has($movieAPI, 'urlPoster'))
+                    {
+                        $movie->urlPoster = $movieAPI->urlPoster;
+                    }
+                    else
+                    {
+                        $movie->urlPoster = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'simplePlot'))
+                    {
+                        $movie->plot = $movieAPI->simplePlot;
+                    }
+                    else
+                    {
+                        $movie->plot = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'rating'))
+                    {
+                        $movie->ratingIMDB = $movieAPI->rating;
+                    }
+                    else
+                    {
+                        $movie->ratingIMDB = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'rated'))
+                    {
+                        $movie->rated = $movieAPI->rated;
+                    }
+                    else
+                    {
+                        $movie->rated = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'votes'))
+                    {
+                        $movie->votes = $movieAPI->votes;
+                    }
+                    else
+                    {
+                        $movie->votes = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'metascore'))
+                    {
+                        $movie->metascore = $movieAPI->metascore;
+                    }
+                    else
+                    {
+                        $movie->metascore = 'N/A';
+                    }
+
+                    $movie->save();
 
                     $this->result = 'GOOD';
                 }
@@ -254,7 +320,19 @@ class MoviesController extends Controller
 
         */
 
-        return response()->json(['result'=>$this->result]);
+        $movie = $this->getMovie($request->IMDBid);
+
+        if (!$movie)
+        {
+            return response()->json($movie);
+        }
+        else
+        {
+            return response()->json(['result'=>'ERROR GET MOVIE']);
+        }
+
+
+        //return response()->json(['result'=>$this->result]);
 
     }
 }
