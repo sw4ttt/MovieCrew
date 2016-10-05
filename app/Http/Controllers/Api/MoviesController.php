@@ -240,7 +240,7 @@ class MoviesController extends Controller
 
         */
 
-        return response()->json(['result'=>$this->$result]);
+        return response()->json(['result'=>$this->result]);
 
     }
 }
