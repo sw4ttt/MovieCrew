@@ -151,7 +151,7 @@ class MoviesController extends Controller
 
         //$movie = $this->getMovie($request->IMDBid);
 
-        $movie = App\Movie::where('IMDBid', $request->IMDBid)->first();
+        $movie = Movie::where('IMDBid', $request->IMDBid)->first();
 
         if ($movie)
         {
@@ -274,7 +274,7 @@ class MoviesController extends Controller
 
         */
 
-        $movie = App\Movie::where('IMDBid', $request->IMDBid)->first();
+        $movie = Movie::where('IMDBid', $request->IMDBid)->first();
 
         if ($movie)
         {
