@@ -22,7 +22,7 @@ class MoviesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $result = 'BEGIN';
+    protected $result;
 
     public function index()
     {
@@ -168,7 +168,7 @@ class MoviesController extends Controller
 
                 if (array_has($content, 'error'))
                 {
-                    $this->result = $content->error->message;
+                    $this->result = ['error'=>$content->error->message];
                 }
                 else
                 {
@@ -182,84 +182,70 @@ class MoviesController extends Controller
                     $movie->urlIMDB = $movieAPI->urlIMDB;
                     $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
                     
-                    if(array_has($movieAPI, 'runtime'))
-                    {
+                    if(array_has($movieAPI, 'runtime')){
                         $movie->runtime = $movieAPI->runtime;
                     }
-                    else
-                    {
+                    else{
                         $movie->runtime = 'N/A';
                     }
 
-                    if(array_has($movieAPI, 'urlPoster'))
-                    {
+                    if(array_has($movieAPI, 'urlPoster')){
                         $movie->urlPoster = $movieAPI->urlPoster;
                     }
-                    else
-                    {
+                    else{
                         $movie->urlPoster = 'N/A';
                     }
 
-                    if(array_has($movieAPI, 'simplePlot'))
-                    {
+                    if(array_has($movieAPI, 'simplePlot')){
                         $movie->plot = $movieAPI->simplePlot;
                     }
-                    else
-                    {
+                    else{
                         $movie->plot = 'N/A';
                     }
 
-                    if(array_has($movieAPI, 'rating'))
-                    {
+                    if(array_has($movieAPI, 'rating')){
                         $movie->ratingIMDB = $movieAPI->rating;
                     }
-                    else
-                    {
+                    else{
                         $movie->ratingIMDB = 'N/A';
                     }
 
-                    if(array_has($movieAPI, 'rated'))
-                    {
+                    if(array_has($movieAPI, 'rated')){
                         $movie->rated = $movieAPI->rated;
                     }
-                    else
-                    {
+                    else{
                         $movie->rated = 'N/A';
                     }
 
-                    if(array_has($movieAPI, 'votes'))
-                    {
+                    if(array_has($movieAPI, 'votes')){
                         $movie->votes = $movieAPI->votes;
                     }
-                    else
-                    {
+                    else{
                         $movie->votes = 'N/A';
                     }
 
-                    if(array_has($movieAPI, 'metascore'))
-                    {
+                    if(array_has($movieAPI, 'metascore')){
                         $movie->metascore = $movieAPI->metascore;
                     }
-                    else
-                    {
+                    else{
                         $movie->metascore = 'N/A';
                     }
 
                     $movie->save();
 
-                    $this->result = 'GOOD';
+                    $this->result = ['result'=>'GOOD'];
                 }
             },
             function (RequestException $e) 
             {
                 //dd($e);
-                $this->result = 'error';
+                $this->result = ['error'=>'RequestException'];
             }
         )->wait();
 
-        if (str_contains($this->result, 'error'));
+        if (array_has($this->result, 'error'));
         {
-            return response()->json(['result1'=>$this->result]);
+            return response()->json(['error'=>$this->result]);
         }
 
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
@@ -270,7 +256,7 @@ class MoviesController extends Controller
         }
         else
         {
-            return response()->json(['result2'=>'ERROR GET MOVIE LAST']);
+            return response()->json(['error'=>'ERROR GET MOVIE LAST']);
         }
 
     }
