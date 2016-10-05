@@ -22,7 +22,7 @@ class MoviesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public $result = ['error' => 'BEGIN'];
+    public $result = 'BEGIN';
 
     public function index()
     {
@@ -197,7 +197,7 @@ class MoviesController extends Controller
 
                 if (array_has($content, 'error'))
                 {
-                    $this.$result = ['error' => $content->error->message];
+                    $this.$result = $content->error->message;
                 }
 
                 $movieAPI = $content->data->movies[0];
@@ -219,14 +219,14 @@ class MoviesController extends Controller
 
                 //$movie->save();
 
-                $this.$result = ['result' => 'GOOD'];
+                $this.$result = 'GOOD';
 
                 //return response()->json($movieAPI);
             },
             function (RequestException $e) 
             {
                 //dd($e);
-                $this.$result = ['result' => 'BAD'];
+                $this.$result = 'BAD';
             }
         )->wait();
 
@@ -240,9 +240,7 @@ class MoviesController extends Controller
 
         */
 
-
-
-        return response()->json($this.$result);
+        return response()->json(['result'=>$this.$result]);
 
     }
 }
