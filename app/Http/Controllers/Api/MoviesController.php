@@ -21,6 +21,9 @@ class MoviesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public $result = ['error' => 'BEGIN'];
+
     public function index()
     {
         //
@@ -185,8 +188,6 @@ class MoviesController extends Controller
         $client = new GuzzleHttpClient();
         $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$request->IMDBid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
 
-        $movieOut = ['error' => 'BEGIN'];
-
         $promise->then(
             function (ResponseInterface $res) 
             {
@@ -196,16 +197,36 @@ class MoviesController extends Controller
 
                 if (array_has($content, 'error'))
                 {
-                    $movieOut = ['error' => $content->error->message];
+                    $this.$result = ['error' => $content->error->message];
                 }
 
-                $movieOut = $content->data->movies[0];
+                $movieAPI = $content->data->movies[0];
+
+                $movie = new Movie;
+
+                $movie->IMDBid = $movieAPI->idIMDB;
+                $movie->title = $movieAPI->title;
+                $movie->year = $movieAPI->year;
+                $movie->runtime = $movieAPI->runtime;
+                $movie->urlPoster = $movieAPI->urlPoster;
+                $movie->urlIMDB = $movieAPI->urlIMDB;
+                $movie->plot = $movieAPI->simplePlot;
+                $movie->ratingIMDB = $movieAPI->rating;
+                $movie->ratingMC = 0; // It starts at zero. It's based on votes on the app.
+                $movie->rated = $movieAPI->rated;
+                $movie->votes = $movieAPI->votes;
+                $movie->metascore = $movieAPI->metascore;
+
+                //$movie->save();
+
+                $this.$result = ['result' => 'GOOD'];
 
                 //return response()->json($movieAPI);
             },
             function (RequestException $e) 
             {
                 //dd($e);
+                $this.$result = ['result' => 'BAD'];
             }
         )->wait();
 
@@ -219,7 +240,9 @@ class MoviesController extends Controller
 
         */
 
-        return response()->json($movieOut);
+
+
+        return response()->json($this.$result);
 
     }
 }
