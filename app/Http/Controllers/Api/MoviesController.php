@@ -259,7 +259,7 @@ class MoviesController extends Controller
 
         if (str_contains($this->result, 'error'));
         {
-            return response()->json(['result'=>'ERROR GET MOVIE']);
+            return response()->json(['result'=>$this->result]);
         }
 
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
@@ -270,7 +270,7 @@ class MoviesController extends Controller
         }
         else
         {
-            return response()->json(['result'=>'ERROR GET MOVIE']);
+            return response()->json(['result'=>'ERROR GET MOVIE LAST']);
         }
 
     }
