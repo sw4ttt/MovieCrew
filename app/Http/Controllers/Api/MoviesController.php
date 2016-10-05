@@ -133,56 +133,7 @@ class MoviesController extends Controller
         return response()->json(['result'=>'true']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-        $input = $request->only(
-            'IMDBid'
-        );
-
-        /*
-        $validator = Validator::make($input, [
-            'IMDBid' => 'required|exists:movies,IMDBid'
-        ]);
-        */
-
-        $validator = Validator::make($input, [
-            'IMDBid' => 'required'
-        ]);
-
-        if($validator->fails()) {
-            //throw new ValidationHttpException($validator->errors()->all());
-            return response()->json($validator->errors());
-        }
-
-        $movie = (new MoviesController)->getMovie($request->IMDBid);
-
-        if ($movie)
-        {
-            return response()->json($movie);
-        }
-
-        $movie = (new MoviesController)->getMovieFromAPI($request->IMDBid);
-
-        return response()->json($movie);
-    }
-
-    public function getMovie($IMDBid)
-    {
-        $movie = Movie::where('IMDBid', $IMDBid)->first();
-
-        if (!$movie)
-            return null;
-
-        return $movie;
-    }
-
-    public function getMovieFromAPI(Request $request)
+    public function getMovie(Request $request)
     {
 
         $input = $request->only(

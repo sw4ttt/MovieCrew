@@ -49,8 +49,7 @@ Route::group(['middleware' => ['api','cors']], function ()
 
     // MOVIES Routes
     Route::get('movies', 'Api\MoviesController@index');
-    //Route::post('getmovie', 'Api\MoviesController@show');
-    Route::post('getmovie', 'Api\MoviesController@getMovieFromAPI');    
+    Route::post('getmovie', 'Api\MoviesController@getMovie');    
     
     Route::post('addmoviecrew', 'Api\MoviesController@addMovieToCrew');
     Route::post('getcrewmovies', 'Api\MoviesController@showCrewMovies');
