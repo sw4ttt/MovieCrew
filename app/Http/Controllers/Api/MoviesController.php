@@ -22,7 +22,7 @@ class MoviesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public $result = 'BEGIN';
+    protected $result = 'BEGIN';
 
     public function index()
     {
