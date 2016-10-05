@@ -168,7 +168,7 @@ class MoviesController extends Controller
 
                 if (array_has($content, 'error'))
                 {
-                    $this->result = $content->error->message;
+                    $this->result = ['error'=>$content->error->message];
                 }
                 else
                 {
