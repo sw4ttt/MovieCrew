@@ -231,7 +231,7 @@ class MoviesController extends Controller
                         $movie->metascore = 'N/A';
                     }
 
-                    $movie->save();
+                    //$movie->save();
 
                     $this->result = ['result'=>'GOOD'];
                 }
@@ -256,7 +256,7 @@ class MoviesController extends Controller
         }
         else
         {
-            return response()->json(['error'=>'ERROR GET MOVIE LAST']);
+            return response()->json(['error'=>'MOVIE not found. BIEN']);
         }
 
     }
