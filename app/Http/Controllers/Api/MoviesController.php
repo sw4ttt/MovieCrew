@@ -188,25 +188,18 @@ class MoviesController extends Controller
         $promise->then(
             function (ResponseInterface $res) 
             {
-                //dd($res);
+                //dd($res);                
 
-                
-
-                //$content = json_decode($res->getBody()->getContents());
-
-                //dd($content->data->movies[0]);
-
-                /*
+                $content = json_decode($res->getBody()->getContents());
 
                 if (array_has($content, 'error'))
                 {
-                    //return response()->json(['error' => $content->error->message]);
-                    session(['result' => false]);
+                    return response()->json(['error' => $content->error->message]);
                 }
 
                 $movieAPI = $content->data->movies[0];
 
-                */
+                return response()->json($movieAPI);
             },
             function (RequestException $e) 
             {
@@ -224,7 +217,7 @@ class MoviesController extends Controller
 
         */
 
-        return response()->json(['result'=>'todo cool']);
+        return response()->json(['result'=>'FIN']);
 
     }
 }
