@@ -234,8 +234,6 @@ class MoviesController extends Controller
                     }
 
                     //$movie->save();
-
-                    $this->result = ['result'=>'GOOD'];
                 }
             },
             function (RequestException $e) 
