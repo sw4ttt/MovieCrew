@@ -198,8 +198,16 @@ class MoviesController extends Controller
                         $movie->urlPoster = 'N/A';
                     }
 
-                    if(array_has($movieAPI, 'simplePlot')){
-                        $movie->plot = $movieAPI->simplePlot;
+                    if(array_has($movieAPI, 'simplePlot'))
+                    {
+                        if ($movieAPI->simplePlot == '')
+                        {
+                            $movie->plot = 'N/A';
+                        }                            
+                        else
+                        {
+                            $movie->plot = $movieAPI->simplePlot;
+                        }
                     }
                     else{
                         $movie->plot = 'N/A';
