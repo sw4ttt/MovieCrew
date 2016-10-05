@@ -247,7 +247,7 @@ class MoviesController extends Controller
         {
             //return response()->json($this->errorMessage);
 
-            return response()->json(['STUFF'=>'1 error TRUE']);
+            return response()->json(['STUFF 1'=>$this->errorMessage]);
         }
 
         return response()->json(['STUFF'=>'2 error FALSE']);
