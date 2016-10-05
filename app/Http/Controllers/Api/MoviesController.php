@@ -253,9 +253,14 @@ class MoviesController extends Controller
             function (RequestException $e) 
             {
                 //dd($e);
-                $this->result = 'BAD';
+                $this->result = 'error';
             }
         )->wait();
+
+        if (str_contains($this->result, 'error'));
+        {
+            return response()->json(['result'=>'ERROR GET MOVIE']);
+        }
 
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
 
@@ -267,8 +272,6 @@ class MoviesController extends Controller
         {
             return response()->json(['result'=>'ERROR GET MOVIE']);
         }
-
-
 
     }
 }
