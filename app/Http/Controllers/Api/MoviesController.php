@@ -170,7 +170,7 @@ class MoviesController extends Controller
                 if (array_has($content, 'error'))
                 {
                     $this->error = true;
-                    $this->errorMessage = ['error'=>$content->error->message];
+                    $this->errorMessage = $content->error->message;
                 }
                 else
                 {
@@ -241,7 +241,7 @@ class MoviesController extends Controller
             function (RequestException $e) 
             {
                 $this->error = true;
-                $this->errorMessage = ['error'=>'API RequestException'];
+                $this->errorMessage = 'API RequestException';
             }
         )->wait();
 
