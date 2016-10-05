@@ -201,10 +201,14 @@ class MoviesController extends Controller
             }
         )->wait();
 
+        /*
+
         if (session('result'))
         {
             return response()->json(session('movie'));
         }
+
+        */
         return response()->json(['result'=>'error Promise.']);        
     }
 }
