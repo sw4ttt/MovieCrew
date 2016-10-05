@@ -21,6 +21,9 @@ class MoviesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $result = 'BEGIN';
+
     public function index()
     {
         //
@@ -130,74 +133,134 @@ class MoviesController extends Controller
         return response()->json(['result'=>'true']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
+    public function getMovie(Request $request)
     {
+
         $input = $request->only(
             'IMDBid'
         );
-
-        /*
-        $validator = Validator::make($input, [
-            'IMDBid' => 'required|exists:movies,IMDBid'
-        ]);
-        */
 
         $validator = Validator::make($input, [
             'IMDBid' => 'required'
         ]);
 
-        if($validator->fails()) {
-            //throw new ValidationHttpException($validator->errors()->all());
+        if($validator->fails()) 
+        {
             return response()->json($validator->errors());
         }
 
-        $movie = (new MoviesController)->getMovie($request->IMDBid);
+        //$movie = $this->getMovie($request->IMDBid);
+
+        $movie = Movie::where('IMDBid', $request->IMDBid)->first();
 
         if ($movie)
         {
             return response()->json($movie);
+            //return response()->json(['result'=>'1']);
         }
 
-        $movie = (new MoviesController)->getMovieFromAPI($request->IMDBid);
+        //return response()->json(['result'=>'PRE OUT']);
 
-        return response()->json($movie);
-    }
-
-    public function getMovie($IMDBid)
-    {
-        $movie = Movie::where('IMDBid', $IMDBid)->first();
-
-        if (!$movie)
-            return null;
-
-        return $movie;
-    }
-
-    public function getMovieFromAPI($imdbid)
-    {
 
         $client = new GuzzleHttpClient();
-        $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$imdbid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
-        
-        session(['imdbid' => $imdbid]);
-        session(['result' => false]);
-        session(['movie' => null]);
+        $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$request->IMDBid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
 
-        
         $promise->then(
             function (ResponseInterface $res) 
             {
-                //dd($res);
+                //dd($res);                
+
+                $content = json_decode($res->getBody()->getContents());
+
+                if (array_has($content, 'error'))
+                {
+                    $this->result = $content->error->message;
+                }
+                else
+                {
+                    $movieAPI = $content->data->movies[0];
+
+                    $movie = new Movie;
+
+                    $movie->IMDBid = $movieAPI->idIMDB;
+                    $movie->title = $movieAPI->title;
+                    $movie->year = $movieAPI->year;
+                    $movie->urlIMDB = $movieAPI->urlIMDB;
+                    $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
+                    
+                    if(array_has($movieAPI, 'runtime'))
+                    {
+                        $movie->runtime = $movieAPI->runtime;
+                    }
+                    else
+                    {
+                        $movie->runtime = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'urlPoster'))
+                    {
+                        $movie->urlPoster = $movieAPI->urlPoster;
+                    }
+                    else
+                    {
+                        $movie->urlPoster = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'simplePlot'))
+                    {
+                        $movie->plot = $movieAPI->simplePlot;
+                    }
+                    else
+                    {
+                        $movie->plot = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'rating'))
+                    {
+                        $movie->ratingIMDB = $movieAPI->rating;
+                    }
+                    else
+                    {
+                        $movie->ratingIMDB = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'rated'))
+                    {
+                        $movie->rated = $movieAPI->rated;
+                    }
+                    else
+                    {
+                        $movie->rated = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'votes'))
+                    {
+                        $movie->votes = $movieAPI->votes;
+                    }
+                    else
+                    {
+                        $movie->votes = 'N/A';
+                    }
+
+                    if(array_has($movieAPI, 'metascore'))
+                    {
+                        $movie->metascore = $movieAPI->metascore;
+                    }
+                    else
+                    {
+                        $movie->metascore = 'N/A';
+                    }
+
+                    $movie->save();
+
+                    $this->result = 'GOOD';
+                }
+                //return response()->json($movieAPI);
             },
             function (RequestException $e) 
             {
                 //dd($e);
+                $this->result = 'BAD';
             }
         )->wait();
 
@@ -210,5 +273,25 @@ class MoviesController extends Controller
 
         */
         return response()->json(['result'=>'error Promise.']);        
+
+        return response()->json(['result'=>'error Promise.']);
+
+
+        $movie = Movie::where('IMDBid', $request->IMDBid)->first();
+
+        if ($movie)
+        {
+            //return response()->json(['result'=>'2']);
+            return response()->json($movie);
+        }
+        else
+        {
+            return response()->json(['result'=>'ERROR GET MOVIE']);
+            //return response()->json(['result'=>'3']);
+        }
+
+
+        //return response()->json(['result'=>$this->result]);
+
     }
 }
