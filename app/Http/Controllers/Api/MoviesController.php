@@ -250,6 +250,9 @@ class MoviesController extends Controller
             return response()->json($this->result);
         }
 
+        return response()->json(['result'=>'POST IF']);
+
+
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
 
         if ($movie)
