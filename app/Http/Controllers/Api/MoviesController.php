@@ -174,66 +174,11 @@ class MoviesController extends Controller
                 }
                 else
                 {
-                    $movieAPI = $content->data->movies[0];
-
-                    $movie = new Movie;
-
-                    $movie->IMDBid = $movieAPI->idIMDB;
-                    $movie->title = $movieAPI->title;
-                    $movie->year = $movieAPI->year;
-                    $movie->urlIMDB = $movieAPI->urlIMDB;
-                    $movie->ratingMC = 0; //It gets set based on votes. (thumbs up o something.)
+                    /*
                     
-                    if(array_has($movieAPI, 'runtime')){
-                        $movie->runtime = $movieAPI->runtime;
-                    }
-                    else{
-                        $movie->runtime = 'N/A';
-                    }
+                    BK
 
-                    if(array_has($movieAPI, 'urlPoster')){
-                        $movie->urlPoster = $movieAPI->urlPoster;
-                    }
-                    else{
-                        $movie->urlPoster = 'N/A';
-                    }
-
-                    if(array_has($movieAPI, 'simplePlot')){
-                        $movie->plot = $movieAPI->simplePlot;
-                    }
-                    else{
-                        $movie->plot = 'N/A';
-                    }
-
-                    if(array_has($movieAPI, 'rating')){
-                        $movie->ratingIMDB = $movieAPI->rating;
-                    }
-                    else{
-                        $movie->ratingIMDB = 'N/A';
-                    }
-
-                    if(array_has($movieAPI, 'rated')){
-                        $movie->rated = $movieAPI->rated;
-                    }
-                    else{
-                        $movie->rated = 'N/A';
-                    }
-
-                    if(array_has($movieAPI, 'votes')){
-                        $movie->votes = $movieAPI->votes;
-                    }
-                    else{
-                        $movie->votes = 'N/A';
-                    }
-
-                    if(array_has($movieAPI, 'metascore')){
-                        $movie->metascore = $movieAPI->metascore;
-                    }
-                    else{
-                        $movie->metascore = 'N/A';
-                    }                    
-
-                    //$movie->save();
+                    */
 
                     $this->error = false;
                 }
@@ -245,7 +190,6 @@ class MoviesController extends Controller
             }
         )->wait();
 
-
         var_dump($this->error == true);
 
         if ($this->error == true);
@@ -255,7 +199,7 @@ class MoviesController extends Controller
             return response()->json(['STUFF 1'=>$this->errorMessage]);
         }
 
-        return response()->json(['STUFF'=>'2 error FALSE']);
+        return response()->json(['STUFF 2'=>'2 error FALSE']);
 
         //return response()->json(['result'=>'POST IF']);
 
