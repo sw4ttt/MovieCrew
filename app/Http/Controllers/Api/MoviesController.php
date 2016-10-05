@@ -179,20 +179,22 @@ class MoviesController extends Controller
         return $movie;
     }
 
-    public function getMovieFromAPI($imdbid)
+    public function getMovieFromAPI(Request $request)
     {
 
         $client = new GuzzleHttpClient();
-        $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$imdbid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
+        $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$request->IMDBid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
                 
         $promise->then(
             function (ResponseInterface $res) 
             {
                 //dd($res);
 
-                $content = json_decode($res->getBody()->getContents());
+                
 
-                dd($content->data->movies[0]);
+                //$content = json_decode($res->getBody()->getContents());
+
+                //dd($content->data->movies[0]);
 
                 /*
 
