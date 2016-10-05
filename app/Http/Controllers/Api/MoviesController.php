@@ -185,6 +185,19 @@ class MoviesController extends Controller
     public function getMovieFromAPI(Request $request)
     {
 
+        $input = $request->only(
+            'IMDBid'
+        );
+
+        $validator = Validator::make($input, [
+            'IMDBid' => 'required'
+        ]);
+
+        if($validator->fails()) 
+        {
+            return response()->json($validator->errors());
+        }
+
         $client = new GuzzleHttpClient();
         $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$request->IMDBid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
 
