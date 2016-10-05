@@ -193,6 +193,18 @@ class MoviesController extends Controller
                 $content = json_decode($res->getBody()->getContents());
 
                 dd($content->data->movies[0]);
+
+                /*
+
+                if (array_has($content, 'error'))
+                {
+                    //return response()->json(['error' => $content->error->message]);
+                    session(['result' => false]);
+                }
+
+                $movieAPI = $content->data->movies[0];
+
+                */
             },
             function (RequestException $e) 
             {
