@@ -243,7 +243,7 @@ class MoviesController extends Controller
             }
         )->wait();
 
-        var_dump($this->result);
+        var_dump(head($this->result));
 
         if (array_has($this->result, 'error'));
         {
