@@ -149,7 +149,9 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
-        $movie = $this->getMovie($request->IMDBid);
+        //$movie = $this->getMovie($request->IMDBid);
+
+        $movie = App\Movie::where('IMDBid', $request->IMDBid)->first();
 
         if ($movie)
         {
@@ -272,7 +274,7 @@ class MoviesController extends Controller
 
         */
 
-        $movie = $this->getMovie($request->IMDBid);
+        $movie = App\Movie::where('IMDBid', $request->IMDBid)->first();
 
         if ($movie)
         {
