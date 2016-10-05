@@ -245,10 +245,14 @@ class MoviesController extends Controller
 
         if ($this->error);
         {
-            return response()->json($this->errorMessage);
+            //return response()->json($this->errorMessage);
+
+            return response()->json(['STUFF'=>'1 error TRUE']);
         }
 
-        return response()->json(['result'=>'POST IF']);
+        return response()->json(['STUFF'=>'2 error FALSE']);
+
+        //return response()->json(['result'=>'POST IF']);
 
 
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
