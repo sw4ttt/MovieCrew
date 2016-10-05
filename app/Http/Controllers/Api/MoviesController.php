@@ -212,28 +212,29 @@ class MoviesController extends Controller
                 {
                     $this->result = $content->error->message;
                 }
+                else
+                {
+                    $movieAPI = $content->data->movies[0];
 
-                $movieAPI = $content->data->movies[0];
+                    $movie = new Movie;
 
-                $movie = new Movie;
+                    $movie->IMDBid = $movieAPI->idIMDB;
+                    $movie->title = $movieAPI->title;
+                    $movie->year = $movieAPI->year;
+                    $movie->runtime = $movieAPI->runtime;
+                    $movie->urlPoster = $movieAPI->urlPoster;
+                    $movie->urlIMDB = $movieAPI->urlIMDB;
+                    $movie->plot = $movieAPI->simplePlot;
+                    $movie->ratingIMDB = $movieAPI->rating;
+                    $movie->ratingMC = 0; // It starts at zero. It's based on votes on the app.
+                    $movie->rated = $movieAPI->rated;
+                    $movie->votes = $movieAPI->votes;
+                    $movie->metascore = $movieAPI->metascore;
 
-                $movie->IMDBid = $movieAPI->idIMDB;
-                $movie->title = $movieAPI->title;
-                $movie->year = $movieAPI->year;
-                $movie->runtime = $movieAPI->runtime;
-                $movie->urlPoster = $movieAPI->urlPoster;
-                $movie->urlIMDB = $movieAPI->urlIMDB;
-                $movie->plot = $movieAPI->simplePlot;
-                $movie->ratingIMDB = $movieAPI->rating;
-                $movie->ratingMC = 0; // It starts at zero. It's based on votes on the app.
-                $movie->rated = $movieAPI->rated;
-                $movie->votes = $movieAPI->votes;
-                $movie->metascore = $movieAPI->metascore;
+                    //$movie->save();
 
-                //$movie->save();
-
-                $this->result = 'GOOD';
-
+                    $this->result = 'GOOD';
+                }
                 //return response()->json($movieAPI);
             },
             function (RequestException $e) 
