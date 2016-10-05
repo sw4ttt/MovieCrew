@@ -197,7 +197,7 @@ class MoviesController extends Controller
 
                 if (array_has($content, 'error'))
                 {
-                    $this.$result = $content->error->message;
+                    $this->$result = $content->error->message;
                 }
 
                 $movieAPI = $content->data->movies[0];
@@ -219,14 +219,14 @@ class MoviesController extends Controller
 
                 //$movie->save();
 
-                $this.$result = 'GOOD';
+                $this->$result = 'GOOD';
 
                 //return response()->json($movieAPI);
             },
             function (RequestException $e) 
             {
                 //dd($e);
-                $this.$result = 'BAD';
+                $this->$result = 'BAD';
             }
         )->wait();
 
@@ -240,7 +240,7 @@ class MoviesController extends Controller
 
         */
 
-        return response()->json(['result'=>$this.$result]);
+        return response()->json(['result'=>$this->$result]);
 
     }
 }
