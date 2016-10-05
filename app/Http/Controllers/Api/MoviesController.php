@@ -23,7 +23,7 @@ class MoviesController extends Controller
      */
 
     protected $error = false;
-    protected $errorMessage = 'EM ini';
+    protected $errorMessage = 'VACIO';
 
     public function index()
     {
