@@ -200,11 +200,10 @@ class MoviesController extends Controller
 
         $movie = $this->getMovie($request->IMDBid);
 
-        if (!$movie)
+        if ($movie)
         {
-            //return response()->json($movie);
-            return response()->json(['result'=>'1']);
-
+            return response()->json($movie);
+            //return response()->json(['result'=>'1']);
         }
 
         //return response()->json(['result'=>'PRE OUT']);
@@ -324,15 +323,15 @@ class MoviesController extends Controller
 
         $movie = $this->getMovie($request->IMDBid);
 
-        if (!$movie)
+        if ($movie)
         {
-            return response()->json(['result'=>'2']);
-            //return response()->json($movie);
+            //return response()->json(['result'=>'2']);
+            return response()->json($movie);
         }
         else
         {
-            //return response()->json(['result'=>'ERROR GET MOVIE']);
-            return response()->json(['result'=>'3']);
+            return response()->json(['result'=>'ERROR GET MOVIE']);
+            //return response()->json(['result'=>'3']);
         }
 
 
