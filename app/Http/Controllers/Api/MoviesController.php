@@ -149,18 +149,12 @@ class MoviesController extends Controller
             return response()->json($validator->errors());
         }
 
-        //$movie = $this->getMovie($request->IMDBid);
-
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
 
         if ($movie)
         {
             return response()->json($movie);
-            //return response()->json(['result'=>'1']);
         }
-
-        //return response()->json(['result'=>'PRE OUT']);
-
 
         $client = new GuzzleHttpClient();
         $promise = $client->requestAsync('GET', 'http://api.myapifilms.com/imdb/idIMDB?idIMDB='.$request->IMDBid.'&token=d76a94d4-dccc-4e2d-a488-26cac8c258ba&simplePlot=1');
@@ -255,7 +249,6 @@ class MoviesController extends Controller
 
                     $this->result = 'GOOD';
                 }
-                //return response()->json($movieAPI);
             },
             function (RequestException $e) 
             {
@@ -264,34 +257,18 @@ class MoviesController extends Controller
             }
         )->wait();
 
-        /*
-
-        if (session('result'))
-        {
-            return response()->json(session('movie'));
-        }
-
-        */
-        return response()->json(['result'=>'error Promise.']);        
-
-        return response()->json(['result'=>'error Promise.']);
-
-
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
 
         if ($movie)
         {
-            //return response()->json(['result'=>'2']);
             return response()->json($movie);
         }
         else
         {
             return response()->json(['result'=>'ERROR GET MOVIE']);
-            //return response()->json(['result'=>'3']);
         }
 
 
-        //return response()->json(['result'=>$this->result]);
 
     }
 }
