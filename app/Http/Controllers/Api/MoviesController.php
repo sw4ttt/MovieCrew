@@ -243,7 +243,7 @@ class MoviesController extends Controller
             }
         )->wait();
 
-        if (array_has($this->result, 'error'));
+        if (array_has($this->result, 'XXX'));
         {
             return response()->json(['error'=>$this->result]);
         }
