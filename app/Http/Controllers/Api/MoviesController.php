@@ -245,7 +245,9 @@ class MoviesController extends Controller
 
         if (array_has($this->result, 'XXX'));
         {
-            return response()->json(['error'=>$this->result]);
+            //return response()->json(['error'=>$this->result]);
+
+            return response()->json($this->result);
         }
 
         $movie = Movie::where('IMDBid', $request->IMDBid)->first();
