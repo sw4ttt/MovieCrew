@@ -23,7 +23,7 @@ class MoviesController extends Controller
      */
 
     protected $error = false;
-    protected $errorMessage;
+    protected $errorMessage = null;
 
     public function index()
     {
@@ -231,9 +231,11 @@ class MoviesController extends Controller
                     }
                     else{
                         $movie->metascore = 'N/A';
-                    }
+                    }                    
 
                     //$movie->save();
+
+                    $this->error = false;
                 }
             },
             function (RequestException $e) 
@@ -243,7 +245,7 @@ class MoviesController extends Controller
             }
         )->wait();
 
-        if ($this->error);
+        if ($this->error == true);
         {
             //return response()->json($this->errorMessage);
 
