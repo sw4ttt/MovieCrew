@@ -22,7 +22,8 @@ class MoviesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $result;
+    protected $error = false;
+    protected $errorMessage;
 
     public function index()
     {
@@ -168,7 +169,8 @@ class MoviesController extends Controller
 
                 if (array_has($content, 'error'))
                 {
-                    $this->result = ['error'=>$content->error->message];
+                    $this->error = true;
+                    $this->errorMessage = ['error'=>$content->error->message];
                 }
                 else
                 {
@@ -238,20 +240,14 @@ class MoviesController extends Controller
             },
             function (RequestException $e) 
             {
-                //dd($e);
-                $this->result = ['error'=>'RequestException'];
+                $this->error = true;
+                $this->errorMessage = ['error'=>'RequestException'];
             }
         )->wait();
 
-        var_dump($this->result);
-
-        if (in_array('error',$this->result));
+        if ($this->error);
         {
-            //return response()->json(['error'=>$this->result]);
-
-            //return response()->json($this->result);
-
-            return response()->json(['result'=>'IF']);
+            return response()->json(['error'=>$this->errorMessage]);
         }
 
         return response()->json(['result'=>'POST IF']);
