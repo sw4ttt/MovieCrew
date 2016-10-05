@@ -245,6 +245,9 @@ class MoviesController extends Controller
             }
         )->wait();
 
+
+        var_dump($this->error);
+
         if ($this->error == true);
         {
             //return response()->json($this->errorMessage);
