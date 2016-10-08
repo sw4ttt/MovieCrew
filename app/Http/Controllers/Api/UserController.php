@@ -25,7 +25,7 @@ class UserController extends Controller
         {
             return response()->json(['result'=>'empty']);
         }
-        return $users;
+        return response()->json($users);
     }
 
     public function delete (Request $request)
