@@ -33,7 +33,7 @@ class MoviesController extends Controller
         {
             return response()->json(['result'=>'empty']);
         }
-        return $movies;
+        return $movies->toJson();
     }
 
     /**
