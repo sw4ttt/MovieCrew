@@ -113,7 +113,7 @@
                                 @foreach ($movies as $movie)
                                     <tr>
                                         <td>
-                                            <img src={{ $movie->urlPoster }} class="img-rounded" alt="movieImage" width="304" height="236">
+                                            <img src={{ $movie->urlPoster }} class="img-rounded img-responsive" alt="movieImage" >
                                         </td>
                                         <td>{{ $movie->id }}</td>
                                         <td>{{ $movie->IMDBid }}</td>
