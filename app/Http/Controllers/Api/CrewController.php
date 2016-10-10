@@ -9,6 +9,8 @@ use App\Crew;
 use App\User;
 use Validator;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Requests;
 
 class CrewController extends Controller
@@ -64,7 +66,11 @@ class CrewController extends Controller
         $crew->name = $request->name;
 
         $crew->save();
-        $crew->users()->attach([$request->user_id => ['role'=>'admin']]);
+        //$crew->users()->attach([$request->user_id => ['role'=>'admin']]);
+
+        DB::table('crew_user')->insert(
+        ['user_id' => $request->user_id, 'crew_id' => $crew->id,'role' => 'admin']
+        );
         //$crew->users()->attach($request->user_id, ['role' => 'admin']);
 
         return response()->json(['result'=>'true']);
