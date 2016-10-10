@@ -226,6 +226,6 @@ class CrewController extends Controller
 
         //return response()->json(['Usuarios en Crew:'=>$crew->users()->count()]);    
 
-        return $crew->users()->toJson();
+        return $crew->users()->orderBy('id')->get()->toJson();
     }
 }
