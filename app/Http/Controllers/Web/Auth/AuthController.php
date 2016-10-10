@@ -22,6 +22,7 @@ class AuthController extends Controller
     	$input = $request->only('email', 'password','password_confirmation','roleselect');
         
         $validator = Validator::make($input, [
+            'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:4|confirmed',
             'roleselect' => 'required',
@@ -36,11 +37,7 @@ class AuthController extends Controller
 
     	$input['password'] = Hash::make($input['password']);
 
-    	User::create([
-           'email' => $input['email'],
-           'password' => $input['password'],
-           'role' => $input['roleselect'],
-       ]);
+    	User::create($input);
 
         //return response()->json(['result'=>true]);
         return redirect('login');  
@@ -51,6 +48,7 @@ class AuthController extends Controller
     	$input = $request->only('email', 'password');
         
         $validator = Validator::make($input, [
+            'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:4',
         ]);

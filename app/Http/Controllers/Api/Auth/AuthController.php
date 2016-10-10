@@ -16,8 +16,10 @@ class AuthController extends Controller
     	$input = $request->only('email', 'password');
         
         $validator = Validator::make($input, [
+            'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:4',
+            'roleselect' => 'required'
         ]);
 
         if($validator->fails()) {
@@ -35,8 +37,9 @@ class AuthController extends Controller
     	$input = $request->only('email', 'password');
         
         $validator = Validator::make($input, [
+            'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:4',
+            'password' => 'required|min:4'
         ]);
 
         if($validator->fails()) {
