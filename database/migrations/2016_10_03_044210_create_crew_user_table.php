@@ -20,7 +20,9 @@ class CreateCrewUserTable extends Migration
 
             $table->integer('crew_id')->unsigned()->index();
             $table->foreign('crew_id')->references('id')
-                    ->on('crews')->onDelete('cascade');            
+                    ->on('crews')->onDelete('cascade');
+
+            $table->string('role');
 
             $table->timestamps();
         });

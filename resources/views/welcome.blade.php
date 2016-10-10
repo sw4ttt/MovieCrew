@@ -36,6 +36,7 @@
                                     <tr>
                                         <th>User_id</th>
                                         <th>Crew_id</th>
+                                        <th>Role</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,6 +45,7 @@
                                             <tr>
                                                 <td>{{ $crew_user->pivot->user_id }}</td>
                                                 <td>{{ $crew_user->pivot->crew_id }}</td>
+                                                <td>{{ $crew_user->pivot->role }}</td>
                                             </tr>
                                         @endforeach
                                     @endforeach
