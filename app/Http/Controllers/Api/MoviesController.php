@@ -209,7 +209,7 @@ class MoviesController extends Controller
                         else
                         {
                             //$movie->plot = "that plot tho.";
-                            $movie->plot = str_limit($movieAPI->simplePlot,200);
+                            $movie->plot = str_limit($movieAPI->Plot,200);
                         }
                     }
                     else{
