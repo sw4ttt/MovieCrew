@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {        
-    	$input = $request->only('name','email', 'password');
+    	$input = $request->only('name','email', 'password','roleselect');
         
         $validator = Validator::make($input, [
             'name' => 'required',
@@ -28,7 +28,12 @@ class AuthController extends Controller
         }
 
     	$input['password'] = Hash::make($input['password']);
-    	User::create($input);
+    	User::create([
+            'name' => $input['name'],
+           'email' => $input['email'],
+           'password' => $input['password'],
+           'role' => $input['roleselect'],
+       ]);
         return response()->json(['result'=>true]);
     }
     
