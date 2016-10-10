@@ -228,7 +228,7 @@ class CrewController extends Controller
 
         //->where('id', $request->user_id)->get(); 
 
-        return $crew->users()->where('id',1)->first()->role;
+        //return $crew->users()->where('id',1)->first()->role;
 
         return response()->json(['result STUFF' => $crew->users()->where('id',1)->first()->role]);
 
