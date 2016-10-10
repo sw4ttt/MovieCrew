@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {        
-    	$input = $request->only('email', 'password');
+    	$input = $request->only('name','email', 'password');
         
         $validator = Validator::make($input, [
             'name' => 'required',
@@ -34,7 +34,7 @@ class AuthController extends Controller
     
     public function login(Request $request)
     {
-    	$input = $request->only('email', 'password');
+    	$input = $request->only('name','email', 'password');
         
         $validator = Validator::make($input, [
             'name' => 'required',

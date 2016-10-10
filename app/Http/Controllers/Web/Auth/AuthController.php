@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {        
-    	$input = $request->only('email', 'password','password_confirmation','roleselect');
+    	$input = $request->only('email', 'name','password','password_confirmation','roleselect');
         
         $validator = Validator::make($input, [
             'name' => 'required',
@@ -45,7 +45,7 @@ class AuthController extends Controller
     
     public function login(Request $request)
     {
-    	$input = $request->only('email', 'password');
+    	$input = $request->only('name','email', 'password');
         
         $validator = Validator::make($input, [
             'name' => 'required',
