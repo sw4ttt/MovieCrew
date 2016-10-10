@@ -24,8 +24,7 @@ class Movie extends Model
         'rated',
         'votes',
         'metascore',
-        'byUser',
-        'crew_id'
+        'byUser'
     ];
 
     public function crews()
