@@ -33,6 +33,6 @@ class User extends Authenticatable
 
     public function crews()
     {
-        return $this->belongsToMany('App\Crew','crew_user')->withTimestamps();
+        return $this->belongsToMany('App\Crew','crew_user')->withPivot('role')->withTimestamps();
     }
 }
