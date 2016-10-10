@@ -18,7 +18,7 @@ class Crew extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User','crew_user')->withTimestamps();
+        return $this->belongsToMany('App\User','crew_user')->withPivot('role')->withTimestamps();
     }
 
     public function movies()
