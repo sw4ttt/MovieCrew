@@ -236,8 +236,8 @@ class CrewController extends Controller
 
         //return $crew->users()->where('id',1)->first()->role;
 
-        return response()->json(['result STUFF' => $crew->users()->where('id',1)->first()->role]);
+        //return response()->json(['result STUFF' => $crew->users()->where('id',1)->first()->role]);
 
-        //return $crew->users()->orderBy('id')->get()->toJson();
+        return $crew->users()->orderBy('id')->get()->toJson();
     }
 }
