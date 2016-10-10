@@ -178,6 +178,8 @@ class MoviesController extends Controller
 
                     $movie = new Movie;
 
+                    //str_limit('The PHP framework for web artisans.', 7);
+
                     $movie->IMDBid = $movieAPI->idIMDB;
                     $movie->title = $movieAPI->title;
                     $movie->year = $movieAPI->year;
@@ -192,7 +194,7 @@ class MoviesController extends Controller
                     }
 
                     if(array_has($movieAPI, 'urlPoster')){
-                        $movie->urlPoster = $movieAPI->urlPoster;
+                        $movie->urlPoster = str_limit($movieAPI->urlPoster, 300);
                     }
                     else{
                         $movie->urlPoster = 'N/A';
@@ -206,7 +208,7 @@ class MoviesController extends Controller
                         }                            
                         else
                         {
-                            $movie->plot = $movieAPI->simplePlot;
+                            $movie->plot = $movieAPI->urlPoster($movieAPI->simplePlot,300);
                         }
                     }
                     else{
