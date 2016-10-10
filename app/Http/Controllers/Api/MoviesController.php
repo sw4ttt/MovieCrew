@@ -208,7 +208,7 @@ class MoviesController extends Controller
                         }                            
                         else
                         {
-                            $movie->plot = $movieAPI->urlPoster($movieAPI->simplePlot,300);
+                            $movie->plot = str_limit($movieAPI->simplePlot,300);
                         }
                     }
                     else{
