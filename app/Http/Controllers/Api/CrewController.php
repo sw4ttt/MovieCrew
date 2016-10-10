@@ -114,11 +114,11 @@ class CrewController extends Controller
     public function show(Request $request)
     {
         $input = $request->only(
-            'id'
+            'crew_id'
         );
 
         $validator = Validator::make($input, [
-            'id' => 'required'
+            'crew_id' => 'required|exists:crews,id'
         ]);
 
         if($validator->fails()) {
@@ -126,7 +126,7 @@ class CrewController extends Controller
             return response()->json($validator->errors());
         }
 
-        $crew = Crew::find($request->crew);
+        $crew = Crew::find($request->crew_id);
 
         if (is_null($crew))
         {
@@ -143,11 +143,11 @@ class CrewController extends Controller
     public function showCrewUser(Request $request)
     {
         $input = $request->only(
-            'id'
+            'crew_id'
         );
 
         $validator = Validator::make($input, [
-            'id' => 'required'
+            'crew_id' => 'required|exists:crews,id'
         ]);
 
         if($validator->fails()) {
@@ -163,17 +163,17 @@ class CrewController extends Controller
         }
 
         //return $crew->user->email;
-        return $crew->user->toJson();
+        return $crew->users->toJson();
     }
 
     public function showUserCrews(Request $request)
     {
         $input = $request->only(
-            'id'
+            'user_id'
         );
 
         $validator = Validator::make($input, [
-            'id' => 'required'
+            'user_id' => 'required|exists:users,id'
         ]);
 
         if($validator->fails()) {
@@ -181,7 +181,7 @@ class CrewController extends Controller
             return response()->json($validator->errors());
         }
         
-        $user = User::find($request->id);
+        $user = User::find($request->user_id);
 
         if (is_null($user))
         {
@@ -190,31 +190,7 @@ class CrewController extends Controller
 
         //return $crew->user->email;
         return $user->crews->toJson();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-    
+    }    
 
     /**
      * Remove the specified resource from storage.
@@ -225,11 +201,13 @@ class CrewController extends Controller
     public function delete (Request $request)
     {
         $input = $request->only(
-            'id'
+            'crew_id',
+            'user_id'
         );
 
         $validator = Validator::make($input, [
-            'id' => 'required'
+            'crew_id' => 'required|exists:crews,id',
+            'user_id' => 'required|exists:users,id'
         ]);
 
         if($validator->fails()) {
@@ -237,15 +215,13 @@ class CrewController extends Controller
             return response()->json($validator->errors());
         }
 
-        $crew = Crew::find($request->id);
+        $crew = Crew::find($request->crew_id);
 
-        if (!$crew)
-        {
-            return response()->json(['result'=>'crew with given id not found.']);    
-        }
+        //$creow->users()->count();
 
-        $crew->delete();   
 
-        return response()->json(['result'=>'true']);    
+        //$crew->delete();   
+
+        return response()->json(['Usuarios en Crew:'=>$creow->users()->count()]);    
     }
 }

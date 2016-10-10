@@ -40,15 +40,16 @@ Route::group(['middleware' => ['api','cors']], function ()
     Route::get('getusers', 'Api\UserController@index');    
     
     // CREWS Routes
-    Route::get('crews', 'Api\CrewController@index');
-    Route::post('addcrew', 'Api\CrewController@addCrewToUser');
-    Route::post('createcrew', 'Api\CrewController@store');
-    Route::post('getcrewuser', 'Api\CrewController@showCrewUser');
+    Route::get('crews', 'Api\CrewController@index');    
+    Route::post('addcrew', 'Api\CrewController@addCrewToUser');    
+    Route::post('createcrew', 'Api\CrewController@store');    
+    Route::post('getcrewuser', 'Api\CrewController@showCrewUser');    
     Route::post('getusercrews', 'Api\CrewController@showUserCrews');
     Route::post('deletecrew', 'Api\CrewController@delete');
 
     // MOVIES Routes
     Route::get('movies', 'Api\MoviesController@index');
+
     Route::post('getmovie', 'Api\MoviesController@getMovie');    
     
     Route::post('addmoviecrew', 'Api\MoviesController@addMovieToCrew');
