@@ -37,7 +37,12 @@ class AuthController extends Controller
 
     	$input['password'] = Hash::make($input['password']);
 
-    	User::create($input);
+    	User::create([
+            'name' => $input['name'],
+           'email' => $input['email'],
+           'password' => $input['password'],
+           'role' => $input['roleselect'],
+       ]);
 
         //return response()->json(['result'=>true]);
         return redirect('login');  
