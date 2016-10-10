@@ -19,13 +19,12 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {        
-    	$input = $request->only('email', 'name','password','password_confirmation','roleselect');
+    	$input = $request->only('email', 'name','password','password_confirmation');
         
         $validator = Validator::make($input, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:4|confirmed',
-            'roleselect' => 'required',
+            'password' => 'required|min:4|confirmed'
         ]);
 
         if($validator->fails()) {
@@ -40,8 +39,7 @@ class AuthController extends Controller
     	User::create([
             'name' => $input['name'],
            'email' => $input['email'],
-           'password' => $input['password'],
-           'role' => $input['roleselect'],
+           'password' => $input['password']
        ]);
 
         //return response()->json(['result'=>true]);
