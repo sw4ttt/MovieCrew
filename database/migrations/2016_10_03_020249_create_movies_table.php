@@ -20,9 +20,9 @@ class CreateMoviesTable extends Migration
             $table->string('title');
             $table->string('year');
             $table->string('runtime');
-            $table->string('urlPoster',300);
+            $table->string('urlPoster',200);
             $table->string('urlIMDB');
-            $table->string('plot', 300);
+            $table->string('plot', 200);
             $table->string('ratingIMDB');
             $table->string('ratingMC');
             $table->string('rated');
