@@ -25,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // User Can Edit Crew.
+        Gate::define('edit-crew', function ($user,$crew) 
+        {
+            return $user->role == 'admin';
+        });
     }
 }
