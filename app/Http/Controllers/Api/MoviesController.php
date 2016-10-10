@@ -194,7 +194,7 @@ class MoviesController extends Controller
                     }
 
                     if(array_has($movieAPI, 'urlPoster')){
-                        $movie->urlPoster = str_limit($movieAPI->urlPoster, 200);
+                        $movie->urlPoster = str_limit($movieAPI->urlPoster, 300);
                     }
                     else{
                         $movie->urlPoster = 'N/A';
