@@ -219,9 +219,13 @@ class CrewController extends Controller
 
         //$creow->users()->count();
 
+        //$user->roles()->detach($roleId);
+
 
         //$crew->delete();   
 
-        return response()->json(['Usuarios en Crew:'=>$crew->users()->count()]);    
+        //return response()->json(['Usuarios en Crew:'=>$crew->users()->count()]);    
+
+        return response()->json($crew->users());
     }
 }
