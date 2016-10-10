@@ -8,7 +8,7 @@
                 <div class="panel-heading"><strong>GENERAL INFO</strong></div>
 
                 <div class="panel-body">                    
-                    @if (isset($users))
+                    @if (isset($users) && ($users->count()>0))
                         <h2>USERS</h2>
                         <table class="table table-hover table-bordered table-responsive">
                             <thead>
@@ -29,7 +29,7 @@
                             </tbody>
                         </table>
 
-                        @if (isset($crews))
+                        @if (isset($crews) && ($crews->count()>0))
                             <h2>USERS CREWS</h2>
                             <table class="table table-hover table-bordered table-responsive">
                                 <thead>
@@ -54,7 +54,7 @@
                         @endif                        
                     @endif
 
-                    @if (isset($crews))
+                    @if (isset($crews) && ($crews->count()>0))
                         <h2>CREWS</h2>
                         <table class="table table-hover table-bordered table-responsive">
                             <thead>
@@ -73,7 +73,7 @@
                             </tbody>
                         </table>
                         
-                        @if (isset($movies))
+                        @if (isset($movies) && ($movies->count()>0))
                             <h2>CREWS MOVIES</h2>
                             <table class="table table-hover table-bordered table-responsive">
                                 <thead>
@@ -97,7 +97,7 @@
 
                     @endif
 
-                    @if (isset($movies))
+                    @if (isset($movies) && ($movies->count()>0))
                         <h2>MOVIES</h2>
                         <table class="table table-hover table-bordered table-responsive">
                             <thead>

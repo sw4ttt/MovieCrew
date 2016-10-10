@@ -20,23 +20,8 @@ Route::get('/', function () {
 
     
     $users = User::all();
-    if ($users->count() == 0)
-    {
-        return view('welcome');
-    }
-
     $crews = Crew::all();
-    if ($crews->count() == 0)
-    {
-        return view('welcome')->with('users', $users);
-    }
-
     $movies = Movie::all();
-
-    if ($movies->count() == 0)
-    {
-        return view('welcome')->with(['users' => $users,'crews' => $crews]);
-    }
 
     return view('welcome')->with(['users' => $users,'crews' => $crews,'movies' => $movies]);
     
