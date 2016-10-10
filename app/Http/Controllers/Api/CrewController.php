@@ -64,8 +64,8 @@ class CrewController extends Controller
         $crew->name = $request->name;
 
         $crew->save();
-
-        $crew->users()->save($user, ['role' => 'admin']);
+        $crew->users()->attach([$request->user_id => ['role'=>'admin']]);
+        //$crew->users()->attach($request->user_id, ['role' => 'admin']);
 
         return response()->json(['result'=>'true']);
     }    
